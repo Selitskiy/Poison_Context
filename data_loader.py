@@ -18,7 +18,7 @@ class HaikuEntry:
 
 
 # Default path to the CSV relative to this file's directory
-_DEFAULT_CSV = os.path.join(os.path.dirname(__file__), "data", "haiku_combined.csv")
+_DEFAULT_CSV = os.path.join(os.path.dirname(__file__), "data", "test_haiku_combined.csv")
 
 
 def load_haiku(csv_path: str = _DEFAULT_CSV) -> list[HaikuEntry]:
