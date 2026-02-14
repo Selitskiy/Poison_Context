@@ -55,12 +55,12 @@ def write_csv(entries: list[dict], filepath: Path) -> None:
         writer.writerows(entries)
 
 
-def main():
+def main(fn_short='haiku_translation'):
     # Resolve paths relative to this script's location
     script_dir = Path(__file__).parent  # parent (\research) of the script directory (\research\combine_haiku.py)
     data_dir = script_dir / 'data'
-    input_file = data_dir / 'haiku_translation.txt'
-    output_file = data_dir / 'haiku_combined.csv'
+    input_file = data_dir / f'{fn_short}.txt'
+    output_file = data_dir / f'{fn_short}.csv'
     
     # Parse input file
     print(f"Reading from: {input_file}")
@@ -77,4 +77,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    main('test_haiku_translation')
 
