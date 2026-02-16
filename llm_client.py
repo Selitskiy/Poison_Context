@@ -11,7 +11,9 @@ import time
 
 import litellm
 
-from config import ModelConfig
+from config import ModelConfig, get_commercial_models_gen
+from data_loader import HaikuEntry, load_haiku
+from prompts import prompt_1
 
 litellm.suppress_debug_info = True
 litellm.drop_params = True  #ES: This tells LiteLLM to automatically drop any parameters that a specific model doesn't support (like temperature for GPT-5)
@@ -89,3 +91,23 @@ def multi_turn(
     return _call_with_retries(model_config, messages, temperature=temperature, max_tokens=max_tokens)
 
 
+# ---------------------------------------------------------------------------
+# Quick self-test
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    
+    mConfigIter = get_commercial_models_gen()
+    mConf = next(mConfigIter)
+    mConf = next(mConfigIter)
+    mConf = next(mConfigIter)
+    mConf = next(mConfigIter)
+    if mConf.api_key: 
+      haikuList = load_haiku()
+      haiku = haikuList[0]
+
+      prompt = prompt_1(haiku.haiku)
+      answer = single_turn(mConf, prompt)
+      print(f"{answer}")
+    else:
+      print(f"API KEY is empty for {mConf.name}")

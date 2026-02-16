@@ -7,7 +7,8 @@ idea: iin the future sue it in the web-app (ES).
 """
 
 from dataclasses import dataclass
-
+from typing import Iterator
+from data_loader import load_keys
 
 @dataclass
 class ModelConfig:
@@ -107,6 +108,13 @@ def get_model_by_name(name: str) -> ModelConfig | None:
             return m
     return None
 
+def get_commercial_models_gen() -> Iterator[ModelConfig]:
+    keys = load_keys()
+    if keys:
+      for model in COMMERCIAL_MODELS:
+        model.api_key = keys[model.name]
+    yield from COMMERCIAL_MODELS
+
 
 # ---------------------------------------------------------------------------
 # Quick self-test
@@ -122,3 +130,7 @@ if __name__ == "__main__":
         print(f"  {m.name:20s}  {m.litellm_model_id}")
 
     print(f"\nTotal models: {len(get_all_models())}")
+
+    print("Commercial models iterator:")
+    for m in get_commercial_models_gen():
+        print(f"  {m.name:20s}  {m.litellm_model_id}") # {m.api_key}")

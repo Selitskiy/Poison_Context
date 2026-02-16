@@ -18,7 +18,7 @@ class HaikuEntry:
 
 
 # Default path to the CSV relative to this file's directory
-_DEFAULT_CSV = os.path.join(os.path.dirname(__file__), "data", "test_haiku_combined.csv")
+_DEFAULT_CSV = os.path.join(os.path.dirname(__file__), "data", "test_haiku_translation.csv")
 
 
 def load_haiku(csv_path: str = _DEFAULT_CSV) -> list[HaikuEntry]:
@@ -51,3 +51,28 @@ def load_haiku(csv_path: str = _DEFAULT_CSV) -> list[HaikuEntry]:
 
     return entries
 
+
+# Default path to the CSV relative to this file's directory
+_DEFAULT_KEYS_CSV = os.path.join(os.path.dirname(__file__), "..", "api_keys.csv")
+
+def load_keys(filename=_DEFAULT_KEYS_CSV):
+    key_dict = {}
+    try:
+      with open(filename, mode='r', newline='') as fh:
+        reader = csv.reader(fh, delimiter=':')
+        for row in reader:
+            if row:
+                key, value = row
+                key_dict[key.strip()] = value.strip()
+    except FileNotFoundError as e:
+        print(f"File not found {filename}")
+
+    return key_dict
+
+# ---------------------------------------------------------------------------
+# Quick self-test
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    keys = load_keys()
+    print(f"API KEYS: {keys}")
