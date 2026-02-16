@@ -1,5 +1,5 @@
 # PoisonContext
-Experiment logs for LLM poisonous context injection research (pilot study): 
+Experiment logs for LLM poisonous context injection research (pilot study):
 Poison_context_experiments.rtf
 Poisonous_context_stats.xlsx
 
