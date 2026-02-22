@@ -13,7 +13,7 @@ import litellm
 
 from config import ModelConfig, get_commercial_models_gen
 from data_loader import HaikuEntry, load_haiku
-from prompts import prompt_1, prompt_2a
+from prompts import prompt_1, prompt_2
 
 litellm.suppress_debug_info = True
 litellm.drop_params = True  #ES: This tells LiteLLM to automatically drop any parameters that a specific model doesn't support (like temperature for GPT-5)
@@ -99,15 +99,15 @@ if __name__ == "__main__":
     
     mConfigIter = get_commercial_models_gen()
     mConf = next(mConfigIter)
-    #mConf = next(mConfigIter)
-    #mConf = next(mConfigIter)
+    mConf = next(mConfigIter)
+    mConf = next(mConfigIter) # free Gemini API - use for testing
     #mConf = next(mConfigIter)
     if mConf.api_key: 
-      haikuList = load_haiku()
-      haiku = haikuList[0]
+      haikuList = load_haiku() # no input parameter - use default short test set
+      haiku = haikuList[0] # use first haiku for testing
 
-      #prompt = prompt_1(haiku.haiku)
-      prompt = prompt_2a(haiku.haiku, haiku.injection)
+      prompt = prompt_1(haiku.haiku)
+      #prompt = prompt_2(haiku.haiku, haiku.injection)
       answer = single_turn(mConf, prompt)
       print(f"{answer}")
     else:

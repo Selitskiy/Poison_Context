@@ -88,11 +88,19 @@ OPEN_MODELS: list[ModelConfig] = [
 
 def get_commercial_models() -> list[ModelConfig]:
     """Return all commercial model configs."""
+    keys = load_keys()
+    if keys:
+      for model in COMMERCIAL_MODELS:
+        model.api_key = keys[model.provider]
     return list(COMMERCIAL_MODELS)
 
 
 def get_open_models() -> list[ModelConfig]:
     """Return all open model configs."""
+    keys = load_keys()
+    if keys:
+      for model in OPEN_MODELS:
+        model.api_key = keys[model.provider]
     return list(OPEN_MODELS)
 
 
@@ -112,7 +120,7 @@ def get_commercial_models_gen() -> Iterator[ModelConfig]:
     keys = load_keys()
     if keys:
       for model in COMMERCIAL_MODELS:
-        model.api_key = keys[model.name]
+        model.api_key = keys[model.provider]
     yield from COMMERCIAL_MODELS
 
 
