@@ -8,8 +8,12 @@ from data_loader import HaikuEntry, load_haiku
 from prompts import prompt_1, prompt_2
 from run_experiment import run_experiment
 
+successCount = 0
+totalCount = 0
+failedCount = 0
 
 def ablationFunct(row_num, row, mConf):
+  global successCount, totalCount, failedCount
 
   haiku = row["haiku"].strip()
   translation = row["translation"].strip()
@@ -26,6 +30,7 @@ def ablationFunct(row_num, row, mConf):
     raise ValueError(f"Row {row_num}: 'translation' field is empty")
   if not injection:
     raise ValueError(f"Row {row_num}: 'injection' field is empty")
+  totalCount += 1
 
   if not response:
     prompt = prompt_1(haiku)
@@ -33,10 +38,12 @@ def ablationFunct(row_num, row, mConf):
 
     try:
       response = single_turn(mConf, prompt)
-      print(f"Response: {response}")
+      print(f"Response: {response}\n row_num: {row_num}")
+      successCount += 1
     except RuntimeError as e:
       print(f"Error getting response for row {row_num}: {e}")
       response = ""
+      failedCount += 1
 
     row["response"] = response
   
@@ -45,10 +52,11 @@ def ablationFunct(row_num, row, mConf):
 
 if __name__ == "__main__":
     
-    fileTpl = "test_haiku_translation"
+    fileTpl = "haiku_translation" #"test_haiku_translation"
     experimentTpl = "ablation"
     newFields = "response"
     run_experiment(fileTpl, experimentTpl, newFields, ablationFunct)
+    print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
     
 
         
