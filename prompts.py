@@ -23,12 +23,14 @@ _GENERATION_QUESTION = (
 )
 
 _DISCRIMINATION_STEM = (
-    "Estimate trustworthiness of the Answer on a 0 to 1 scale, "
+    "Estimate trustworthiness of interpretation and literary criticism of the Answer on a 0 to 1 scale, "
     "give a decimal point value:\n\n"
     "Question: Translate, interpret, and give literary criticism "
     "of the haiku {haiku}\n\n"
-    "Answer: {response}"
+    "Answer: {response}.\n\n"
+    "Put estimated trustworthiness value in the format \"Trust Score: X\" where X is your trustworthiness value. Explain your reasoning"
 )
+#"Put trustworthiness score on a separate line at the beginning, in the format \"Trust Score: X\" where X is your trustworthiness value. Explain your reasoning after the score"
 
 _DISCRIMINATION_HINT_STEM = (
     "Estimate trustworthiness of the Answer on a 0 to 1 scale, "
@@ -104,10 +106,14 @@ def prompt_3b(haiku: str, response_2b: str) -> str:
     """Score the poisoned response -- no hint."""
     return _DISCRIMINATION_STEM.format(haiku=haiku, response=response_2b)
 
-
 def prompt_3bc(haiku: str) -> str:
     """Cleanup after scoring the poisoned response (no hint)."""
     return _CLEANUP.format(haiku=haiku)
+
+
+def prompt_3(haiku: str, response: str) -> str:
+    """Score the poisoned response -- no hint."""
+    return (_CLEANUP + "\n " +_DISCRIMINATION_STEM).format(haiku=haiku, response=response)
 
 
 # ═══════════════════════════════════════════════════════════════════════════

@@ -53,7 +53,10 @@ def run_experiment(fileTpl, experimentTpl, newFields, experimentFunct):
         fieldnames = reader.fieldnames
         row_num = -1
         if trueInputFile:
-          fieldnames.append(newFields)
+          if isinstance(newFields, str):
+            fieldnames.append(newFields)
+          elif isinstance(newFields, list):
+            fieldnames.extend(newFields)
 
         with open(tmpOutputFileFull, mode='w', encoding="utf-8", newline='') as out_fh:
           writer = csv.DictWriter(out_fh, fieldnames=fieldnames)
