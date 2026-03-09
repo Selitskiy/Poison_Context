@@ -11,7 +11,7 @@ import time
 
 import litellm
 
-from config import ModelConfig, get_commercial_models_gen
+from config import ModelConfig, get_commercial_models_gen, get_open_models_gen
 from data_loader import HaikuEntry, load_haiku
 from prompts import prompt_1, prompt_2
 
@@ -40,7 +40,9 @@ def _call_with_retries(
                 model=model_config.litellm_model_id,
                 messages=messages,
                 temperature=temperature,        # ES: better to have this option for experimentation with different temperatures
-                api_key=model_config.api_key,   # ES:better to use this option instead of the environment variable (due tomultiple models)
+                api_key=model_config.api_key,   # ES:better to use this option instead of the environment variable (due tomultiple models)    
+                api_base=model_config.api_base if hasattr(model_config, "api_base") else None,  #ES: for models with custom API base (like Qwen)
+                enable_thinking=model_config.enable_thinking if hasattr(model_config, "enable_thinking") else None,  #ES: for models that support "thinking" mode (like Qwen)              
             )
             if max_tokens is not None:
                 kwargs["max_tokens"] = max_tokens
@@ -97,10 +99,11 @@ def multi_turn(
 
 if __name__ == "__main__":
     
-    mConfigIter = get_commercial_models_gen()
+    #mConfigIter = get_commercial_models_gen()
+    mConfigIter = get_open_models_gen()
     mConf = next(mConfigIter)
     mConf = next(mConfigIter)
-    mConf = next(mConfigIter) # free Gemini API - use for testing
+    #mConf = next(mConfigIter) # free Gemini API - use for testing
     #mConf = next(mConfigIter)
     if mConf.api_key: 
       haikuList = load_haiku() # no input parameter - use default short test set

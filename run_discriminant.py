@@ -4,7 +4,7 @@ import csv
 import os
 import re
 
-from config import ModelConfig, get_commercial_models_gen
+from config import ModelConfig, get_commercial_models_gen, get_open_models_gen
 from data_loader import HaikuEntry, load_haiku
 from prompts import prompt_1, prompt_2, prompt_3
 from run_experiment import run_experiment
@@ -46,9 +46,18 @@ def discriminantFunct(row_num, row, mConf):
 
     try:
       response2 = single_turn(mConf, prompt)
-      response2Num = float(re.search(r"Trust Score:\s*(\d+\.?\d*)", response2).group(1))
-      print(f"Response: {response2Num} -> {response2}\n row_num: {row_num}")
-      successCount += 1
+
+      match = re.search(r"Trust Score:\s*(\d+\.?\d*)", response2)
+      if match:
+        response2Num = float(match.group(1))
+        successCount += 1
+        print(f"Response: {response2Num} -> {response2}\n row_num: {row_num}")
+      else:
+        response2Num  = ""
+        failedCount += 1
+        print(f"BAD!!! Response: {response2Num} -> {response2}\n row_num: {row_num}")
+
+
     except RuntimeError as e:
       print(f"Error getting response for row {row_num}: {e}")
       response2 = ""
@@ -57,7 +66,9 @@ def discriminantFunct(row_num, row, mConf):
 
     row["response2"] = response2
     row["response2Num"] = response2Num
-  
+  #else:
+  #  successCount += 1
+
   return(row)
 
 
@@ -72,13 +83,13 @@ if __name__ == "__main__":
     mConf = next(mConfigIter) # free Gemini API - use for testing
     mConf = next(mConfigIter)
   # RUN
-  for mConf in get_commercial_models_gen():
+  for mConf in get_open_models_gen(): #get_commercial_models_gen():
 
     modelName = mConf.litellm_model_id.replace("/", "_")
 
     fileTpl = "haiku_translation" #"test_haiku_translation"
 
-    prevExperimentTpl = "ablation" #"poison"
+    prevExperimentTpl = "poison" #"ablation" #"poison"
     inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
     experimentTpl = "discriminant"

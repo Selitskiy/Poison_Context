@@ -9,6 +9,7 @@ idea: iin the future sue it in the web-app (ES).
 from dataclasses import dataclass
 from typing import Iterator
 from data_loader import load_keys
+from typing import Optional
 
 @dataclass
 class ModelConfig:
@@ -17,6 +18,8 @@ class ModelConfig:
     litellm_model_id: str    # LiteLLM routing name (openai/gpt-5)
     api_key: str             # API key for this provider
     provider: str            # Provider label (openai, anthropic, gemini, etc.)
+    api_base: Optional[str] = None      # Optional custom API base URL (for models like Qwen that don't use the standard OpenAI endpoint)
+    enable_thinking: Optional[bool] = None  # Optional flag for models that support "thinking"
 
 
 # ---------------------------------------------------------------------------
@@ -55,32 +58,35 @@ COMMERCIAL_MODELS: list[ModelConfig] = [
 # ---------------------------------------------------------------------------
 
 OPEN_MODELS: list[ModelConfig] = [
-    ModelConfig(
-        name="Llama 4",
-        litellm_model_id="{provider}/meta-llama/Llama-4",      # QUESTION: what is {provider}?
-        api_key="PASTE_OPEN_PROVIDER_API_KEY_HERE",
-        provider="TODO",
-    ),
+    #ModelConfig(
+    #    name="Llama 4",
+    #    litellm_model_id="{provider}/meta-llama/Llama-4",      # QUESTION: what is {provider}?
+    #    api_key="PASTE_OPEN_PROVIDER_API_KEY_HERE",
+    #    provider="TODO",
+    #),
     ModelConfig(
         name="Qwen 3",
-        litellm_model_id="{provider}/Qwen/Qwen3",              # QUESTION: what is {provider}?
-        api_key="PASTE_OPEN_PROVIDER_API_KEY_HERE",
-        provider="TODO",
+        litellm_model_id="dashscope/qwen3-32b",              # QUESTION: what is {provider}?
+        api_key="",
+        provider="dashscope",
+        api_base="https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+        enable_thinking=False,  
     ),
     ModelConfig(
         name="DeepSeek-R1",
-        litellm_model_id="{provider}/deepseek-ai/DeepSeek-R1",  # QUESTION: what is {provider}?
-        api_key="PASTE_OPEN_PROVIDER_API_KEY_HERE",
-        provider="TODO",
+        litellm_model_id="deepseek/deepseek-reasoner",  # QUESTION: what is {provider}?
+        api_key="",
+        provider="deepseek",
     ),
     ModelConfig(
         name="Mistral",
-        litellm_model_id="{provider}/mistralai/Mistral-Large",  # QUESTION: what is {provider}?
-        api_key="PASTE_OPEN_PROVIDER_API_KEY_HERE",
-        provider="TODO",
+        litellm_model_id="mistral/mistral-large-latest",  # QUESTION: what is {provider}?
+        api_key="",
+        provider="mistral",
     ),
 ]
 
+#Mistral Large 3 (v25.12):
 
 # ---------------------------------------------------------------------------
 # Helper accessors
@@ -123,7 +129,12 @@ def get_commercial_models_gen() -> Iterator[ModelConfig]:
         model.api_key = keys[model.provider]
     yield from COMMERCIAL_MODELS
 
-
+def get_open_models_gen() -> Iterator[ModelConfig]:
+    keys = load_keys()
+    if keys:
+      for model in OPEN_MODELS:
+        model.api_key = keys[model.provider]
+    yield from OPEN_MODELS
 # ---------------------------------------------------------------------------
 # Quick self-test
 # ---------------------------------------------------------------------------

@@ -3,22 +3,23 @@ from llm_client import single_turn
 import csv
 import os
 
-from config import ModelConfig, get_commercial_models_gen
+from config import ModelConfig, get_commercial_models_gen, get_open_models_gen
 from data_loader import HaikuEntry
 
 
 def run_experiment(fileTpl, experimentTpl, newFields, experimentFunct):
 
-  DEBUG = False #True
+  DEBUG = True #False #True
     
   if DEBUG:
-    mConfigIter = get_commercial_models_gen()
+    #mConfigIter = get_commercial_models_gen()
+    mConfigIter = get_open_models_gen()
     mConf = next(mConfigIter)
     #mConf = next(mConfigIter)
     #mConf = next(mConfigIter) # free Gemini API - use for testing
     #mConf = next(mConfigIter)
   # RUN
-  for mConf in get_commercial_models_gen():
+  #for mConf in get_commercial_models_gen():
 
     inputFileName = f"{fileTpl}.csv"
     inputFileFull = os.path.join(os.path.dirname(__file__), "data", inputFileName)
