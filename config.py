@@ -135,6 +135,14 @@ def get_open_models_gen() -> Iterator[ModelConfig]:
       for model in OPEN_MODELS:
         model.api_key = keys[model.provider]
     yield from OPEN_MODELS
+
+def get_all_models_gen() -> Iterator[ModelConfig]:
+    keys = load_keys()
+    ALL_MODELS = COMMERCIAL_MODELS + OPEN_MODELS
+    if keys:
+      for model in ALL_MODELS:
+        model.api_key = keys[model.provider]
+    yield from ALL_MODELS
 # ---------------------------------------------------------------------------
 # Quick self-test
 # ---------------------------------------------------------------------------

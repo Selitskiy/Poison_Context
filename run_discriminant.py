@@ -89,13 +89,10 @@ if __name__ == "__main__":
 
     fileTpl = "haiku_translation" #"test_haiku_translation"
 
-    prevExperimentTpl = "poison" #"ablation" #"poison"
+    prevExperimentTpl = "ablation" #"poison"
     inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
     experimentTpl = "discriminant"
     newFields = ["response2Num","response2"]
     run_experiment(inputFileTpl, experimentTpl, newFields, discriminantFunct)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
-    
-
-        
