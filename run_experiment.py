@@ -15,7 +15,7 @@ def run_experiment(fileTpl, experimentTpl, newFields, experimentFunct):
     #mConfigIter = get_commercial_models_gen()
     mConfigIter = get_open_models_gen()
     mConf = next(mConfigIter)
-    #mConf = next(mConfigIter)
+    mConf = next(mConfigIter)
     #mConf = next(mConfigIter) # free Gemini API - use for testing
     #mConf = next(mConfigIter)
   # RUN

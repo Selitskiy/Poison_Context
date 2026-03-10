@@ -41,7 +41,7 @@ def discriminantFunct(row_num, row, mConf):
     raise ValueError(f"Row {row_num}: 'response' field is empty")
   totalCount += 1
 
-  if not response2 and not response2Num:
+  if not response2 or not response2Num:
     prompt = prompt_3(haiku, response)
 
     try:

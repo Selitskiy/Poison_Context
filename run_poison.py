@@ -56,6 +56,3 @@ if __name__ == "__main__":
     newFields = "response"
     run_experiment(fileTpl, experimentTpl, newFields, poisonFunct)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
-    
-
-        
