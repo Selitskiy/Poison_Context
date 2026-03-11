@@ -47,15 +47,23 @@ def discriminantFunct(row_num, row, mConf):
     try:
       response2 = single_turn(mConf, prompt)
 
+      #pattern = r"Trust Score:.*?(\d+\.?\d*)"
+
       match = re.search(r"Trust Score:\s*(\d+\.?\d*)", response2)
       if match:
         response2Num = float(match.group(1))
         successCount += 1
         print(f"Response: {response2Num} -> {response2}\n row_num: {row_num}")
       else:
-        response2Num  = ""
-        failedCount += 1
-        print(f"BAD!!! Response: {response2Num} -> {response2}\n row_num: {row_num}")
+        match = re.search(r"Trust Score:\s*\*\*(\d+\.\d+)\*\*", response2)
+        if match:
+          response2Num = float(match.group(1))
+          successCount += 1
+          print(f"Response: {response2Num} -> {response2}\n row_num: {row_num}")
+        else:
+          response2Num  = ""
+          failedCount += 1
+          print(f"BAD!!! Response: {response2Num} -> {response2}\n row_num: {row_num}")
 
 
     except RuntimeError as e:
