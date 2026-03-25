@@ -103,7 +103,7 @@ if __name__ == "__main__":
     mConfigIter = get_open_models_gen()
     mConf = next(mConfigIter)
     mConf = next(mConfigIter)
-    #mConf = next(mConfigIter) # free Gemini API - use for testing
+    mConf = next(mConfigIter) 
     #mConf = next(mConfigIter)
     if mConf.api_key: 
       haikuList = load_haiku() # no input parameter - use default short test set
