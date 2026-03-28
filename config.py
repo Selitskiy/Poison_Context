@@ -58,12 +58,12 @@ COMMERCIAL_MODELS: list[ModelConfig] = [
 # ---------------------------------------------------------------------------
 
 OPEN_MODELS: list[ModelConfig] = [
-    #ModelConfig(
-    #    name="Llama 4",
-    #    litellm_model_id="{provider}/meta-llama/Llama-4",      # QUESTION: what is {provider}?
-    #    api_key="PASTE_OPEN_PROVIDER_API_KEY_HERE",
-    #    provider="TODO",
-    #),
+    ModelConfig(
+        name="Llama 4",
+        litellm_model_id="groq/meta-llama/llama-4-scout-17b-16e-instruct",      # QUESTION: what is {provider}?
+        api_key="",
+        provider="groq",
+    ),
     ModelConfig(
         name="Qwen 3",
         litellm_model_id="dashscope/qwen3-32b",              # QUESTION: what is {provider}?
