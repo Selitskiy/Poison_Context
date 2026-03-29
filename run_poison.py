@@ -51,7 +51,7 @@ def poisonFunct(row_num, row, mConf):
 
 if __name__ == "__main__":
     
-    fileTpl = "haiku_translation" #"test_haiku_translation"
+    fileTpl = "test_haiku_translation" #"test_haiku_translation"
     experimentTpl = "poison"
     newFields = "response"
     run_experiment(fileTpl, experimentTpl, newFields, poisonFunct)

@@ -52,7 +52,7 @@ def ablationFunct(row_num, row, mConf):
 
 if __name__ == "__main__":
     
-    fileTpl = "haiku_translation" #"test_haiku_translation"
+    fileTpl = "test_haiku_translation" #"test_haiku_translation"
     experimentTpl = "ablation"
     newFields = "response"
     run_experiment(fileTpl, experimentTpl, newFields, ablationFunct)
