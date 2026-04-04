@@ -6,14 +6,14 @@ import re
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
 from data_loader import HaikuEntry, load_haiku
-from prompts import prompt_1, prompt_2, prompt_3
-from run_analysis import run_analysis
+from prompts import prompt_1, prompt_2, prompt_3, prompt_7
+from run_experiment import run_experiment
 
 successCount = 0
 totalCount = 0
 failedCount = 0
 
-def accuracyFunct(row_num, row, mConf):
+def discriminantHintWarnFunct(row_num, row, mConf):
   global successCount, totalCount, failedCount
 
   haiku = row["haiku"].strip()
@@ -42,7 +42,7 @@ def accuracyFunct(row_num, row, mConf):
   totalCount += 1
 
   if not response2 or not response2Num:
-    prompt = prompt_3(haiku, response)
+    prompt = prompt_7(haiku, translation, response)
 
     try:
       response2 = single_turn(mConf, prompt)
@@ -82,15 +82,25 @@ def accuracyFunct(row_num, row, mConf):
 
 if __name__ == "__main__":
     
-  #for mConf in get_all_models_gen(): #get_open_models_gen(): #get_commercial_models_gen():
+  DEBUG = False #True
+    
+  if DEBUG:
+    mConfigIter = get_commercial_models_gen()
+    mConf = next(mConfigIter)
+    #mConf = next(mConfigIter)
+    #mConf = next(mConfigIter) # free Gemini API - use for testing
+    #mConf = next(mConfigIter)
+  # RUN
+  for mConf in get_all_models_gen(): #get_open_models_gen(): #get_commercial_models_gen():
 
-  #modelName = mConf.litellm_model_id.replace("/", "_")
+    modelName = mConf.litellm_model_id.replace("/", "_")
 
-  fileTpl = "haiku_translation" #"test_haiku_translation"
+    fileTpl = "test_haiku_translation" #"test_haiku_translation"
 
-  prevExperimentTpl1 = "ablation"
-  prevExperimentTpl2 = "poison"
-  experimentTpl = "discriminant_hint"
+    prevExperimentTpl = "ablation" #"poison"
+    inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
-  run_analysis(fileTpl, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, accuracyFunct)
-  print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
+    experimentTpl = "discriminant_hint_warn"
+    newFields = ["response2Num","response2"]
+    run_experiment(inputFileTpl, experimentTpl, newFields, discriminantHintWarnFunct)
+    print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
