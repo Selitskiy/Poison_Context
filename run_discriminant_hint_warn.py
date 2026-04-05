@@ -95,12 +95,12 @@ if __name__ == "__main__":
 
     modelName = mConf.litellm_model_id.replace("/", "_")
 
-    fileTpl = "test_haiku_translation" #"test_haiku_translation"
+    fileTpl = "haiku_translation" #"test_haiku_translation"
 
     prevExperimentTpl = "ablation" #"poison"
     inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
-    experimentTpl = "discriminant_hint_warn"
+    experimentTpl = "discriminant_warn"
     newFields = ["response2Num","response2"]
     run_experiment(inputFileTpl, experimentTpl, newFields, discriminantHintWarnFunct)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 

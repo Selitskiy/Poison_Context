@@ -86,11 +86,11 @@ if __name__ == "__main__":
 
   #modelName = mConf.litellm_model_id.replace("/", "_")
 
-  fileTpl = "haiku_translation" #"test_haiku_translation"
+  fileTpl = "test_haiku_translation" #"test_haiku_translation"
 
   prevExperimentTpl1 = "ablation"
   prevExperimentTpl2 = "poison"
-  experimentTpl = "discriminant_hint"
+  experimentTpl = "discriminant"
 
   run_analysis(fileTpl, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, accuracyFunct)
   print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
