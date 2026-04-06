@@ -100,7 +100,7 @@ if __name__ == "__main__":
     prevExperimentTpl = "ablation" #"poison"
     inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
-    experimentTpl = "discriminant_warn"
+    experimentTpl = "discriminant_hint_warn"
     newFields = ["response2Num","response2"]
     run_experiment(inputFileTpl, experimentTpl, newFields, discriminantHintWarnFunct)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 

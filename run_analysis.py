@@ -2,13 +2,14 @@ import llm_client
 from llm_client import single_turn
 import csv
 import os
+import pandas as pd
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
 from data_loader import HaikuEntry
-import pandas as pd
+#from run_accuracy import modelPairAccuracyFunct
 
 
-def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, experimentFunct):
+def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
 
   #outputFileName = f"{fileTpl}_{experimentTpl}_{modelName}.csv"
   #tmpOutputFileName = f"tmp_{outputFileName}"
@@ -24,6 +25,24 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, experimentFunct):
   df_recall = pd.DataFrame()
   df_f1 = pd.DataFrame()
 
+  dfr_accuracy = pd.DataFrame()
+  dfr_precision = pd.DataFrame()
+  dfr_recall = pd.DataFrame()
+  dfr_f1 = pd.DataFrame()
+
+  dfc_accuracy = pd.DataFrame()
+  dfc_precision = pd.DataFrame()
+  dfc_recall = pd.DataFrame()
+  dfc_f1 = pd.DataFrame()
+
+  acc_exp1_list = []
+  acc_exp2_list = []
+
+  acc_cl = {}
+  precision_cl = {}
+  recall_cl = {}
+  f1_cl = {}
+
   # generator models
   for mConf1 in get_all_models_gen(): #get_open_models_gen(): #get_commercial_models_gen():
 
@@ -35,8 +54,11 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, experimentFunct):
     recall_cr = {"generator": modelAlias1}
     f1_cr = {"generator": modelAlias1}
 
+    exp1_list = []
+    exp2_list = []
+
     # discriminator models
-    for mConf2 in get_all_models_gen(): #get_open_models_gen(): #get_commercial_models_gen():
+    for i, mConf2 in enumerate(get_all_models_gen()): #get_open_models_gen(): #get_commercial_models_gen():
 
       modelName2 = mConf2.litellm_model_id.replace("/", "_")
       modelAlias2 = mConf2.name
@@ -67,19 +89,39 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, experimentFunct):
 
         dfi = pd.concat([df1, df2], axis=1)
 
-        tp = dfi[expTpl1].mean()
-        fn = 1 - tp
-        fp = dfi[expTpl2].mean()
-        tn = 1 - fp
-        accuracy = (tp + tn) / (tp + tn + fp + fn)
-        precision = tp/(tp+fp) 
-        recall = tp/(tp+fn) 
-        f1 = 2*precision * recall/(precision + recall)
+        accuracy, precision, recall, f1 = accuracyFunct(dfi, expTpl1, expTpl2)
 
         acc_cr[modelAlias2] = accuracy
         precision_cr[modelAlias2] = precision
         recall_cr[modelAlias2] = recall
         f1_cr[modelAlias2] = f1
+
+
+        # by row
+        exp1_list.append(df1)
+        exp2_list.append(df2)
+
+        # by column
+        if len(acc_exp1_list) <= i:
+          acc_exp1_list.append(exp1_list[i])
+        else:
+          acc_exp1_list[i] = pd.concat([acc_exp1_list[i], exp1_list[i]])
+
+        if len(acc_exp2_list) <= i:
+          acc_exp2_list.append(exp2_list[i])
+        else:
+          acc_exp2_list[i] = pd.concat([acc_exp2_list[i], exp2_list[i]])
+
+        #tp = dfi[expTpl1].mean()
+        #fn = 1 - tp
+        #fp = dfi[expTpl2].mean()
+        #tn = 1 - fp
+        #accuracy = (tp + tn) / (tp + tn + fp + fn)
+        #precision = tp/(tp+fp) 
+        #recall = tp/(tp+fn) 
+        #f1 = 2*precision * recall/(precision + recall)
+
+
 
         #with open(tmpOutputFileFull, mode='w', encoding="utf-8", newline='') as out_fh:
           #writer = csv.DictWriter(out_fh, fieldnames=fieldnames)
@@ -101,6 +143,36 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, experimentFunct):
     df_recall = pd.concat([df_recall, pd.DataFrame([recall_cr])], ignore_index=True)
     df_f1 = pd.concat([df_f1, pd.DataFrame([f1_cr])], ignore_index=True)
 
+    if exp1_list and exp2_list:
+      #by row
+      exp1_row = pd.concat(exp1_list)
+      exp2_row = pd.concat(exp2_list)
+      dfi_r = pd.concat([exp1_row, exp2_row], axis=1)
+      accuracy_r, precision_r, recall_r, f1_r = accuracyFunct(dfi_r, expTpl1, expTpl2)
+
+      dfr_accuracy = pd.concat([dfr_accuracy, pd.DataFrame([{"generator": modelAlias1, "accuracy": accuracy_r}])], ignore_index=True)
+      dfr_precision = pd.concat([dfr_precision, pd.DataFrame([{"generator": modelAlias1, "precision": precision_r}])], ignore_index=True)
+      dfr_recall = pd.concat([dfr_recall, pd.DataFrame([{"generator": modelAlias1, "recall": recall_r}])], ignore_index=True)
+      dfr_f1 = pd.concat([dfr_f1, pd.DataFrame([{"generator": modelAlias1, "f1": f1_r}])], ignore_index=True)
+
+  #by column
+  for i, mConf2 in enumerate(get_all_models_gen()): #get_open_models_gen(): #get_commercial_models_gen():
+
+    #modelName2 = mConf2.litellm_model_id.replace("/", "_")
+    modelAlias2 = mConf2.name
+    dfi_c = pd.concat([acc_exp1_list[i], acc_exp2_list[i]], axis=1)
+    accuracy_c, precision_c, recall_c, f1_c = accuracyFunct(dfi_c, expTpl1, expTpl2)
+
+    acc_cl[modelAlias2] = accuracy_c
+    precision_cl[modelAlias2] = precision_c
+    recall_cl[modelAlias2] = recall_c
+    f1_cl[modelAlias2] = f1_c
+
+  dfc_accuracy = pd.DataFrame([acc_cl])
+  dfc_precision = pd.DataFrame([precision_cl])
+  dfc_recall = pd.DataFrame([recall_cl])
+  dfc_f1 = pd.DataFrame([f1_cl])
+
   print(f"Accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl}")
   print("Accuracy:")
   print(df_accuracy)
@@ -110,6 +182,26 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, experimentFunct):
   print(df_recall)
   print("F1:")
   print(df_f1)
+
+  print(f"Generator accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl}")
+  print("Accuracy:")
+  print(dfr_accuracy)
+  print("Precision:")
+  print(dfr_precision)
+  print("Recall:")
+  print(dfr_recall)
+  print("F1:")
+  print(dfr_f1)
+
+  print(f"Discriminator accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl}")
+  print("Accuracy:")
+  print(dfc_accuracy)
+  print("Precision:")
+  print(dfc_precision)
+  print("Recall:")
+  print(dfc_recall)
+  print("F1:")
+  print(dfc_f1)
 
   #os.rename(tmpOutputFileFull, outputFileFull)
   #print(f"Output written to: {outputFileFull}")
