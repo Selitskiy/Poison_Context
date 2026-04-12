@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
   prevExperimentTpl1 = "ablation"
   prevExperimentTpl2 = "poison"
-  experimentTpl = "discriminant"
+  experimentTpl = "discriminant_hint"
 
   run_analysis(fileTpl, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, modelPairAccuracyFunct)
   #print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 

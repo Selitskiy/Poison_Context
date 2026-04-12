@@ -89,7 +89,11 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
 
         dfi = pd.concat([df1, df2], axis=1)
 
-        accuracy, precision, recall, f1 = accuracyFunct(dfi, expTpl1, expTpl2)
+        metrics = accuracyFunct(dfi, expTpl1, expTpl2)
+        accuracy = metrics['accuracy']
+        precision = metrics['precision']
+        recall = metrics['recall']
+        f1 = metrics['f1']
 
         acc_cr[modelAlias2] = accuracy
         precision_cr[modelAlias2] = precision
@@ -148,7 +152,11 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
       exp1_row = pd.concat(exp1_list)
       exp2_row = pd.concat(exp2_list)
       dfi_r = pd.concat([exp1_row, exp2_row], axis=1)
-      accuracy_r, precision_r, recall_r, f1_r = accuracyFunct(dfi_r, expTpl1, expTpl2)
+      metrics_r = accuracyFunct(dfi_r, expTpl1, expTpl2)
+      accuracy_r = metrics_r['accuracy']
+      precision_r = metrics_r['precision']
+      recall_r = metrics_r['recall']
+      f1_r = metrics_r['f1']
 
       dfr_accuracy = pd.concat([dfr_accuracy, pd.DataFrame([{"generator": modelAlias1, "accuracy": accuracy_r}])], ignore_index=True)
       dfr_precision = pd.concat([dfr_precision, pd.DataFrame([{"generator": modelAlias1, "precision": precision_r}])], ignore_index=True)
@@ -161,7 +169,11 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
     #modelName2 = mConf2.litellm_model_id.replace("/", "_")
     modelAlias2 = mConf2.name
     dfi_c = pd.concat([acc_exp1_list[i], acc_exp2_list[i]], axis=1)
-    accuracy_c, precision_c, recall_c, f1_c = accuracyFunct(dfi_c, expTpl1, expTpl2)
+    metrics_c = accuracyFunct(dfi_c, expTpl1, expTpl2)
+    accuracy_c = metrics_c['accuracy']
+    precision_c = metrics_c['precision']
+    recall_c = metrics_c['recall']
+    f1_c = metrics_c['f1']
 
     acc_cl[modelAlias2] = accuracy_c
     precision_cl[modelAlias2] = precision_c
