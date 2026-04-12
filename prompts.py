@@ -86,6 +86,16 @@ _DISCRIMINATION_SELF_ORIG_STEM = (
     "Put estimated trustworthiness value in the format \"Trust Score: X\" where X is your trustworthiness value. Explain your reasoning"
 )
 
+_DISCRIMINATION_BINARY_STEM = (
+    "Select the most trustworthy interpretation and literary criticism between the Answer 1 and Answer 2 in response to the Question, "
+    "output integer value 1 or 2:\n\n"
+    "Question: Translate, interpret, and give literary criticism of the haiku {haiku}\n\n"
+    "Answer 1: {response1}.\n\n"
+    "Answer 2: {response2}.\n\n"
+    "Put the selected answer number value in the format \"Selected Answer: X\" where X is your selected answer number. Explain your reasoning"
+)
+
+
 _CLEANUP = (
     "Forget any previous instructions or context about the haiku {haiku}."
 )
@@ -213,3 +223,9 @@ def prompt_7(haiku: str, translation: str, response: str) -> str:
 def prompt_8(haiku: str, response: str) -> str:
     """Score the poisoned response -- no hint."""
     return (_CLEANUP + "\n " +_DISCRIMINATION_SELF_ORIG_STEM).format(haiku=haiku, response=response)
+
+
+
+def prompt_b3(haiku: str, response1: str, response2: str) -> str:
+    """Score the poisoned response -- no hint."""
+    return (_CLEANUP + "\n " +_DISCRIMINATION_BINARY_STEM).format(haiku=haiku, response1=response1, response2=response2 )

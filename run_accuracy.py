@@ -5,7 +5,7 @@ import os
 import re
 
 
-from run_analysis import run_analysis
+from run_analysis_ca import run_analysis
 
 
 def modelPairAccuracyFunct(dfi, expTpl1, expTpl2):
@@ -19,7 +19,12 @@ def modelPairAccuracyFunct(dfi, expTpl1, expTpl2):
   recall = tp/(tp+fn) 
   f1 = 2*precision * recall/(precision + recall)
 
-  return(accuracy, precision, recall, f1)
+  return {
+    'accuracy': accuracy,
+    'precision': precision,
+    'recall': recall,
+    'f1': f1
+  }
 
 
 if __name__ == "__main__":
