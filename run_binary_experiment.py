@@ -2,6 +2,7 @@ import llm_client
 from llm_client import single_turn
 import csv
 import os
+import random
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
 from data_loader import HaikuEntry
@@ -74,7 +75,10 @@ def run_binary_experiment(fileTpl1, fileTpl2, genModelName, prevExpTpl1, prevExp
             for row_num, row1 in enumerate(reader1, start=2):  # start=2 (row 1 is header)
               row2 = next(reader2)
 
-              row = experimentFunct(row_num, row1, row2, prevExpTpl1, prevExpTpl2, mConf)
+              if random.random() < 0.5:
+                row = experimentFunct(row_num, row1, row2, prevExpTpl1, prevExpTpl2, mConf)
+              else:
+                row = experimentFunct(row_num, row2, row1, prevExpTpl2, prevExpTpl1, mConf)
 
               writer.writerow(row)
       else:

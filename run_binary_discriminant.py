@@ -1,7 +1,5 @@
 import llm_client
 from llm_client import single_turn
-import csv
-import os
 import re
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
@@ -63,13 +61,13 @@ def binaryDiscriminantFunct(row_num, row1, row2, prevExpTpl1, prevExpTpl2, mConf
       if match:
         response3Num = int(match.group(1))
         successCount += 1
-        print(f"Response: {response3Num} -> {response3}\n row_num: {row_num}")
+        print(f"Response: {response3Num}, {prevExpTpl1}/{prevExpTpl2} -> {response3}\n row_num: {row_num}")
       else:
         match = re.search(r"Selected Answer:\s*\*\*(\d+)\*\*", response3)
         if match:
           response3Num = int(match.group(1))
           successCount += 1
-          print(f"Response: {response3Num} -> {response3}\n row_num: {row_num}")
+          print(f"Response: {response3Num}, {prevExpTpl1}/{prevExpTpl2} -> {response3}\n row_num: {row_num}")
         else:
           response3Num  = ""
           failedCount += 1
