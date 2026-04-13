@@ -8,7 +8,7 @@ from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, 
 from data_loader import HaikuEntry
 
 
-def run_binary_experiment(fileTpl1, fileTpl2, genModelName, prevExpTpl1, prevExpTpl2, experimentTpl, newFields, experimentFunct):
+def run_binary_experiment(fileTpl1, fileTpl2, genFileTpl, genModelName, prevExpTpl1, prevExpTpl2, experimentTpl, newFields, experimentFunct):
 
   DEBUG = False #True
     
@@ -37,7 +37,7 @@ def run_binary_experiment(fileTpl1, fileTpl2, genModelName, prevExpTpl1, prevExp
         exit(1)
 
     modelName = mConf.litellm_model_id.replace("/", "_")
-    outputFileName = f"{genModelName}_{experimentTpl}_{modelName}.csv"
+    outputFileName = f"{genFileTpl}_{genModelName}_{experimentTpl}_{modelName}.csv"
     tmpOutputFileName = f"tmp_{outputFileName}"
     tmpOutputFileFull = os.path.join(os.path.dirname(__file__), "data", tmpOutputFileName)
 

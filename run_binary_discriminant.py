@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     modelName = mConf.litellm_model_id.replace("/", "_")
 
-    fileTpl = "test_haiku_translation" #"test_haiku_translation"
+    fileTpl = "haiku_translation" #"test_haiku_translation"
 
     prevExperimentTpl1 = "ablation"
     inputFileTpl1 = f"{fileTpl}_{prevExperimentTpl1}_{modelName}"
@@ -111,5 +111,5 @@ if __name__ == "__main__":
 
     experimentTpl = "binary_discriminant"
     newFields = ["response2","response3Num","response3","prevExp1","prevExp2"]
-    run_binary_experiment(inputFileTpl1, inputFileTpl2, modelName, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, newFields, binaryDiscriminantFunct)
+    run_binary_experiment(inputFileTpl1, inputFileTpl2, fileTpl, modelName, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, newFields, binaryDiscriminantFunct)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
