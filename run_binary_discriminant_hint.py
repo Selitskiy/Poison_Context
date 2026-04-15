@@ -109,7 +109,7 @@ if __name__ == "__main__":
     prevExperimentTpl2 = "poison"
     inputFileTpl2 = f"{fileTpl}_{prevExperimentTpl2}_{modelName}"
 
-    experimentTpl = "binary_discriminant"
+    experimentTpl = "binary_discriminant_hint"
     newFields = ["response2","response3Num","response3","prevExp1","prevExp2"]
     run_binary_experiment(inputFileTpl1, inputFileTpl2, fileTpl, modelName, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, newFields, binaryDiscriminantHintFunct)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
