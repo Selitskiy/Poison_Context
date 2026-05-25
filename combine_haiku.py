@@ -76,6 +76,7 @@ def main(fn_short='haiku_translation'):
     print(f"Output written to: {output_file}")
 
 if __name__ == '__main__':
-    main()
-    main('test_haiku_translation')
+    #main()
+    #main('test_haiku_translation')
+    main('haiku_translation2l')
 

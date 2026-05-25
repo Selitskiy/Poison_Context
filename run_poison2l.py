@@ -6,17 +6,18 @@ import os
 from config import ModelConfig, get_commercial_models_gen
 from data_loader import HaikuEntry, load_haiku
 from prompts import prompt_1, prompt_2
-from run_experiment import run_experiment
+from run_2lsubstitution import run_2lsubstitution
 
 successCount = 0
 totalCount = 0
 failedCount = 0
 
-def ablationFunct(row_num, row, mConf):
+def poisonFunct2l(row_num, row, row2, mConf):
   global successCount, totalCount, failedCount
 
   haiku = row["haiku"].strip()
   translation = row["translation"].strip()
+  translation2l = row2["translation"].strip()
   injection = row["injection"].strip()
   if row.get("response") is not None:
     response = row["response"].strip()
@@ -28,13 +29,17 @@ def ablationFunct(row_num, row, mConf):
     raise ValueError(f"Row {row_num}: 'haiku' field is empty")
   if not translation:
     raise ValueError(f"Row {row_num}: 'translation' field is empty")
+  if not translation2l:
+    raise ValueError(f"Row {row_num}: 'translation2l' field is empty")
   if not injection:
     raise ValueError(f"Row {row_num}: 'injection' field is empty")
   totalCount += 1
 
+  row["translation"] = translation2l
+
   if not response:
-    prompt = prompt_1(haiku)
-    #prompt = prompt_2(haiku, injection)
+    #prompt = prompt_1(haiku)
+    prompt = prompt_2(haiku, injection)
 
     try:
       response = single_turn(mConf, prompt)
@@ -52,10 +57,11 @@ def ablationFunct(row_num, row, mConf):
 
 if __name__ == "__main__":
     
-    fileTpl = "test_haiku_translation" #"test_haiku_translation"
-    experimentTpl = "ablation"
+    fileTpl = "haiku_translation" #"test_haiku_translation"
+    fileTpl2 = "haiku_translation2l"
+    experimentTpl = "poison"
     newFields = "response"
-    run_experiment(fileTpl, experimentTpl, newFields, ablationFunct)
+    run_2lsubstitution(fileTpl, fileTpl2, experimentTpl, newFields, poisonFunct2l)
     print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
     
 

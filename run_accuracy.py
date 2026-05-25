@@ -4,8 +4,7 @@ import csv
 import os
 import re
 
-
-from run_analysis_ca import run_analysis
+from run_analysis import run_analysis
 
 
 def modelPairAccuracyFunct(dfi, expTpl1, expTpl2):
@@ -37,7 +36,7 @@ if __name__ == "__main__":
 
   prevExperimentTpl1 = "ablation"
   prevExperimentTpl2 = "poison"
-  experimentTpl = "discriminant_hint"
+  experimentTpl = "discriminant_hint_warn"
 
   run_analysis(fileTpl, prevExperimentTpl1, prevExperimentTpl2, experimentTpl, modelPairAccuracyFunct)
   #print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 
