@@ -57,8 +57,8 @@ def poisonFunct2l(row_num, row, row2, mConf):
 
 if __name__ == "__main__":
     
-    fileTpl = "haiku_translation" #"test_haiku_translation"
-    fileTpl2 = "haiku_translation2l"
+    fileTpl = "haiku_translation_add" #"test_haiku_translation"
+    fileTpl2 = "haiku_translation2l_add"
     experimentTpl = "poison"
     newFields = "response"
     run_2lsubstitution(fileTpl, fileTpl2, experimentTpl, newFields, poisonFunct2l)

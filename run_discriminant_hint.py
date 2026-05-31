@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     fileTpl = "haiku_translation2l" #"test_haiku_translation"
 
-    prevExperimentTpl = "poison" #"ablation" #"poison"
+    prevExperimentTpl = "ablation" #"ablation" #"poison"
     inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
     experimentTpl = "discriminant_hint"
