@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     modelName = mConf.litellm_model_id.replace("/", "_")
 
-    fileTpl = "haiku_translation" #"test_haiku_translation"
+    fileTpl = "haiku_translation_add" #"test_haiku_translation"
 
     prevExperimentTpl1 = "ablation"
     inputFileTpl1 = f"{fileTpl}_{prevExperimentTpl1}_{modelName}"
