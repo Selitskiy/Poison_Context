@@ -38,13 +38,19 @@ def modelPairAccuracyFunctWilcoxon(dfi1, dfi2, expTpl1, expTpl2):
 
 if __name__ == "__main__":
 
-  fileTpl = "haiku_translation" #"test_haiku_translation"
-  fileTpl2 = "haiku_translation"
+  # May be (likely) the same
+  fileTpl = "haiku_translation" 
+  fileTpl2 = "haiku_translation" #"haiku_translation2l"
 
+  # Don't change
   prevExperimentTpl1 = "ablation"
   prevExperimentTpl2 = "poison"
-  experimentTpl1 = "discriminant"
-  experimentTpl2 = "discriminant_diy"
+
+  # Compares if mean of the second distribution is 'better' to the righ tof the first
+  experimentTpl1 = "discriminant_diy"
+  experimentTpl2 = "discriminant_hint_warn"
+
+  # Compares distribution in fileTpl with both prevEperimetTpl* columns and experiemntTpl1 experiemmt, with distribution in fileTpl2 with prevEperimetTpl* columns and experiemntTpl2 experiment
 
   run_analysis_hypot(fileTpl, fileTpl2, prevExperimentTpl1, prevExperimentTpl2, experimentTpl1, experimentTpl2, modelPairAccuracyFunctWilcoxon)
   #print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 

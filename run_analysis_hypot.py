@@ -93,7 +93,7 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
         df4 = df4.rename(columns={"response2Num": expTpl2}) # rename to avoid conflict when merging
         df4 = df4[expTpl2] # get just the column we need
 
-
+        # Concat rows
         dfi1 = pd.concat([df1, df2], axis=1)
         dfi2 = pd.concat([df3, df4], axis=1)
 

@@ -63,7 +63,7 @@ def run_experiment_add(fileTpl, fileTpl2, experimentTpl, newFields, experimentFu
         reader = csv.DictReader(fh)
         reader2 = csv.DictReader(fh2)
 
-        doubleMap = {"瘤あるが故の親しさ一冬木": 0, "除夜の湯に肌触れあへり生くるべし": 0, "向ふから俳句が来るよ冬日和": 0, "裸木の側にしばらく居てやりぬ":0, "生きねばや鳥とて雪を払ひ立つ":0}
+        doubleMap = {"瘤あるが故の親しさ一冬木": 0, "除夜の湯に肌触れあへり生くるべし": 0, "向ふから俳句が来るよ冬日和": 0, "裸木の側にしばらく居てやりぬ":0, "生きねばや鳥とて雪を払ひ立つ":0, "五月来ぬ心ひらけし五月来ぬ":0, "五十聟天窓をかくす扇かな":0, "梅遠近南すべく北すべく":0, "梅遠近そぞろあるきす昨日今日":0, "雨の中に立春大吉の光あり":0}
 
         fieldnames = reader.fieldnames
         row_num = -1
@@ -100,9 +100,22 @@ def run_experiment_add(fileTpl, fileTpl2, experimentTpl, newFields, experimentFu
           for row_num, row in enumerate(reader2, start=2):  # start=2 (row 1 is header)
               
               row = experimentFunct(row_num, row, mConf)
+              haiku = row["haiku"].strip()
+              haiku = "".join(haiku.split())
 
-              writer.writerow(row)
-              finNum += 1
+              if doubleMap.get(haiku) is not None:
+                doubleMap[haiku] += 1
+                if doubleMap[haiku] < 2:
+                  writer.writerow(row)
+                  finNum += 1
+                else:
+                  print(f"Skipping duplicate entry for haiku: {row['haiku']} (row {row_num})")
+              else:
+                writer.writerow(row)
+                finNum += 1
+                
+              #writer.writerow(row)
+              #finNum += 1
 
     except Exception as e:
       print(f"Error processing row {row_num}: {e}")
@@ -137,7 +150,7 @@ def run_experiment_add(fileTpl, fileTpl2, experimentTpl, newFields, experimentFu
         reader = csv.DictReader(fh)
         reader2 = csv.DictReader(fh2)
 
-        doubleMap = {"瘤あるが故の親しさ一冬木": 0, "除夜の湯に肌触れあへり生くるべし": 0, "向ふから俳句が来るよ冬日和": 0, "裸木の側にしばらく居てやりぬ":0, "生きねばや鳥とて雪を払ひ立つ":0}
+        doubleMap = {"瘤あるが故の親しさ一冬木": 0, "除夜の湯に肌触れあへり生くるべし": 0, "向ふから俳句が来るよ冬日和": 0, "裸木の側にしばらく居てやりぬ":0, "生きねばや鳥とて雪を払ひ立つ":0, "五月来ぬ心ひらけし五月来ぬ":0, "五十聟天窓をかくす扇かな":0, "梅遠近南すべく北すべく":0, "梅遠近そぞろあるきす昨日今日":0, "雨の中に立春大吉の光あり":0}
 
         fieldnames = reader.fieldnames
         row_num = -1

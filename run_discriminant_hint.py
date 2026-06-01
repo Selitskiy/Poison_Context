@@ -95,9 +95,9 @@ if __name__ == "__main__":
 
     modelName = mConf.litellm_model_id.replace("/", "_")
 
-    fileTpl = "haiku_translation2l" #"test_haiku_translation"
+    fileTpl = "haiku_translation2l_add" #"test_haiku_translation"
 
-    prevExperimentTpl = "ablation" #"ablation" #"poison"
+    prevExperimentTpl = "poison" #"ablation" #"poison"
     inputFileTpl = f"{fileTpl}_{prevExperimentTpl}_{modelName}"
 
     experimentTpl = "discriminant_hint"
