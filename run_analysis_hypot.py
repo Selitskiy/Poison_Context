@@ -8,6 +8,13 @@ from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, 
 from data_loader import HaikuEntry
 
 
+def _concat_metric_pair(left, right):
+  return pd.concat(
+      [left.reset_index(drop=True), right.reset_index(drop=True)],
+      axis=1,
+  )
+
+
 def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, experimentTpl2, accuracyFunct):
 
   # Get metric names from a sample call to accuracyFunct
@@ -94,8 +101,8 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
         df4 = df4[expTpl2] # get just the column we need
 
         # Concat rows
-        dfi1 = pd.concat([df1, df2], axis=1)
-        dfi2 = pd.concat([df3, df4], axis=1)
+        dfi1 = _concat_metric_pair(df1, df2)
+        dfi2 = _concat_metric_pair(df3, df4)
 
         metrics = accuracyFunct(dfi1, dfi2, expTpl1, expTpl2)
 
@@ -113,22 +120,22 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
         if len(acc_exp1_list) <= i:
           acc_exp1_list.append(exp1_list[i])
         else:
-          acc_exp1_list[i] = pd.concat([acc_exp1_list[i], exp1_list[i]])
+          acc_exp1_list[i] = pd.concat([acc_exp1_list[i], exp1_list[i]], ignore_index=True)
 
         if len(acc_exp2_list) <= i:
           acc_exp2_list.append(exp2_list[i])
         else:
-          acc_exp2_list[i] = pd.concat([acc_exp2_list[i], exp2_list[i]])
+          acc_exp2_list[i] = pd.concat([acc_exp2_list[i], exp2_list[i]], ignore_index=True)
 
         if len(acc_exp3_list) <= i:
           acc_exp3_list.append(exp3_list[i])
         else:
-          acc_exp3_list[i] = pd.concat([acc_exp3_list[i], exp3_list[i]])
+          acc_exp3_list[i] = pd.concat([acc_exp3_list[i], exp3_list[i]], ignore_index=True)
 
         if len(acc_exp4_list) <= i:
           acc_exp4_list.append(exp4_list[i])
         else:
-          acc_exp4_list[i] = pd.concat([acc_exp4_list[i], exp4_list[i]])
+          acc_exp4_list[i] = pd.concat([acc_exp4_list[i], exp4_list[i]], ignore_index=True)
 
 
       except Exception as e:
@@ -141,13 +148,13 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
 
     if exp1_list and exp2_list:
       #by row
-      exp1_row = pd.concat(exp1_list)
-      exp2_row = pd.concat(exp2_list)
-      dfi_r1 = pd.concat([exp1_row, exp2_row], axis=1)
+      exp1_row = pd.concat(exp1_list, ignore_index=True)
+      exp2_row = pd.concat(exp2_list, ignore_index=True)
+      dfi_r1 = _concat_metric_pair(exp1_row, exp2_row)
 
-      exp3_row = pd.concat(exp3_list)
-      exp4_row = pd.concat(exp4_list)
-      dfi_r2 = pd.concat([exp3_row, exp4_row], axis=1)
+      exp3_row = pd.concat(exp3_list, ignore_index=True)
+      exp4_row = pd.concat(exp4_list, ignore_index=True)
+      dfi_r2 = _concat_metric_pair(exp3_row, exp4_row)
 
       metrics_r = accuracyFunct(dfi_r1, dfi_r2, expTpl1, expTpl2)
 
@@ -159,8 +166,8 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
 
     #modelName2 = mConf2.litellm_model_id.replace("/", "_")
     modelAlias2 = mConf2.name
-    dfi_c1 = pd.concat([acc_exp1_list[i], acc_exp2_list[i]], axis=1)
-    dfi_c2 = pd.concat([acc_exp3_list[i], acc_exp4_list[i]], axis=1)
+    dfi_c1 = _concat_metric_pair(acc_exp1_list[i], acc_exp2_list[i])
+    dfi_c2 = _concat_metric_pair(acc_exp3_list[i], acc_exp4_list[i])
 
     metrics_c = accuracyFunct(dfi_c1, dfi_c2, expTpl1, expTpl2)
 
@@ -187,4 +194,3 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
 
   #os.rename(tmpOutputFileFull, outputFileFull)
   #print(f"Output written to: {outputFileFull}")
-

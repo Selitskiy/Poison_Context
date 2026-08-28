@@ -8,6 +8,18 @@ from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, 
 from data_loader import HaikuEntry
 
 
+def print_latex_table(df, caption, label):
+  print(f"% {caption}")
+  print(
+      df.to_latex(
+          index=False,
+          float_format=lambda x: f"{x:.4f}",
+          caption=caption,
+          label=label,
+      )
+  )
+
+
 def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
 
   # Get metric names from a sample call to accuracyFunct
@@ -145,21 +157,26 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
   for name in metric_names:
     dfc_metrics[name] = pd.DataFrame([acc_cl[name]])
 
-  print(f"Accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl}")
   for name in metric_names:
-    print(f"{name.capitalize()}:")
-    print(df_metrics[name])
+    print_latex_table(
+        df_metrics[name],
+        f"Accuracy metrics for {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
+        f"tab:{fileTpl}_{experimentTpl}_{name}_accuracy",
+    )
 
-  print(f"Generator accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl}")
   for name in metric_names:
-    print(f"{name.capitalize()}:")
-    print(dfr_metrics[name])
+    print_latex_table(
+        dfr_metrics[name],
+        f"Generator accuracy metrics for {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
+        f"tab:{fileTpl}_{experimentTpl}_{name}_generator_accuracy",
+    )
 
-  print(f"Discriminator accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl}")
   for name in metric_names:
-    print(f"{name.capitalize()}:")
-    print(dfc_metrics[name])
+    print_latex_table(
+        dfc_metrics[name],
+        f"Discriminator accuracy metrics for {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
+        f"tab:{fileTpl}_{experimentTpl}_{name}_discriminator_accuracy",
+    )
 
   #os.rename(tmpOutputFileFull, outputFileFull)
   #print(f"Output written to: {outputFileFull}")
-

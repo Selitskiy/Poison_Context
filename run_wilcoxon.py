@@ -4,8 +4,35 @@ import csv
 import os
 import re
 
+import numpy as np
+import pandas as pd
 from scipy.stats import wilcoxon
 from run_analysis_hypot import run_analysis_hypot
+
+
+def wilcoxon_p_value(left, right, alternative='less'):
+  paired = pd.DataFrame({"left": left, "right": right}).dropna()
+  if paired.empty:
+    return 1.0
+
+  diffs = paired["left"] - paired["right"]
+  non_zero_diffs = diffs[~np.isclose(diffs, 0.0)]
+  if non_zero_diffs.empty:
+    return 1.0
+
+  try:
+    _, p_value = wilcoxon(
+        paired["left"],
+        paired["right"],
+        alternative=alternative,
+    )
+  except ValueError:
+    return 1.0
+
+  if np.isnan(p_value):
+    return 1.0
+
+  return float(p_value)
 
 
 def modelPairAccuracyFunctWilcoxon(dfi1, dfi2, expTpl1, expTpl2):
@@ -24,16 +51,11 @@ def modelPairAccuracyFunctWilcoxon(dfi1, dfi2, expTpl1, expTpl2):
   fpw2 = dfi2[expTpl2]
   tnw2 = 1 - fpw2
   accuracyw2 = (tpw2 + tnw2) / (tpw2 + tnw2 + fpw2 + fnw2)
-  precisionw2 = tpw2/(tpw2+fpw2)
-  recallw2 = tpw2/(tpw2+fnw2)
-  f1w2 = 2*precisionw2 * recallw2/(precisionw2 + recallw2)
 
-  acc_wilcoxon_stat, acc_p_value = wilcoxon(accuracyw1, accuracyw2, alternative='less')
-  #f1_wilcoxon_stat, f1_p_value = wilcoxon(f1w1, f1w2, alternative='less')
+  acc_p_value = wilcoxon_p_value(accuracyw1, accuracyw2, alternative='less')
 
   return {
     'acc_p_value': acc_p_value,
-    #'f1_p_value': f1_p_value
   }
 
 if __name__ == "__main__":
@@ -47,8 +69,8 @@ if __name__ == "__main__":
   prevExperimentTpl2 = "poison"
 
   # Compares if mean of the second distribution is 'better' to the righ tof the first
-  experimentTpl1 = "discriminant_diy"
-  experimentTpl2 = "discriminant_hint_warn"
+  experimentTpl1 = "discriminant_self"
+  experimentTpl2 = "discriminant_self_orig"
 
   # Compares distribution in fileTpl with both prevEperimetTpl* columns and experiemntTpl1 experiemmt, with distribution in fileTpl2 with prevEperimetTpl* columns and experiemntTpl2 experiment
 
