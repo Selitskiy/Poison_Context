@@ -1,5 +1,5 @@
-import llm_client
-from llm_client import single_turn
+#import llm_client
+#from llm_client import single_turn
 import csv
 import os
 import re
@@ -62,17 +62,16 @@ if __name__ == "__main__":
 
   # May be (likely) the same
   fileTpl = "haiku_translation" 
-  fileTpl2 = "haiku_translation" #"haiku_translation2l"
+  fileTpl2 = "haiku_translation2l" #"haiku_translation2l"
 
   # Don't change
   prevExperimentTpl1 = "ablation"
   prevExperimentTpl2 = "poison"
 
   # Compares if mean of the second distribution is 'better' to the righ tof the first
-  experimentTpl1 = "discriminant_self"
-  experimentTpl2 = "discriminant_self_orig"
+  experimentTpl1 = "discriminant_hint"
+  experimentTpl2 = "discriminant_hint"
 
   # Compares distribution in fileTpl with both prevEperimetTpl* columns and experiemntTpl1 experiemmt, with distribution in fileTpl2 with prevEperimetTpl* columns and experiemntTpl2 experiment
 
   run_analysis_hypot(fileTpl, fileTpl2, prevExperimentTpl1, prevExperimentTpl2, experimentTpl1, experimentTpl2, modelPairAccuracyFunctWilcoxon)
-  #print(f"Experiment complete. Success count: {successCount}, Total count: {totalCount}, Failed count: {failedCount}") 

@@ -92,21 +92,23 @@ OPEN_MODELS: list[ModelConfig] = [
 # Helper accessors
 # ---------------------------------------------------------------------------
 
-def get_commercial_models() -> list[ModelConfig]:
+def get_commercial_models(keysFl=True) -> list[ModelConfig]:
     """Return all commercial model configs."""
-    keys = load_keys()
-    if keys:
-      for model in COMMERCIAL_MODELS:
-        model.api_key = keys[model.provider]
+    if keysFl:
+        keys = load_keys()
+        if keys:
+            for model in COMMERCIAL_MODELS:
+                model.api_key = keys[model.provider]
     return list(COMMERCIAL_MODELS)
 
 
-def get_open_models() -> list[ModelConfig]:
+def get_open_models(keysFl=True) -> list[ModelConfig]:
     """Return all open model configs."""
-    keys = load_keys()
-    if keys:
-      for model in OPEN_MODELS:
-        model.api_key = keys[model.provider]
+    if keysFl:
+        keys = load_keys()
+        if keys:
+            for model in COMMERCIAL_MODELS:
+                model.api_key = keys[model.provider]
     return list(OPEN_MODELS)
 
 
@@ -122,26 +124,29 @@ def get_model_by_name(name: str) -> ModelConfig | None:
             return m
     return None
 
-def get_commercial_models_gen() -> Iterator[ModelConfig]:
-    keys = load_keys()
-    if keys:
-      for model in COMMERCIAL_MODELS:
-        model.api_key = keys[model.provider]
+def get_commercial_models_gen(keysFl=True) -> Iterator[ModelConfig]:
+    if keysFl:
+        keys = load_keys()
+        if keys:
+            for model in COMMERCIAL_MODELS:
+                model.api_key = keys[model.provider]
     yield from COMMERCIAL_MODELS
 
-def get_open_models_gen() -> Iterator[ModelConfig]:
-    keys = load_keys()
-    if keys:
-      for model in OPEN_MODELS:
-        model.api_key = keys[model.provider]
+def get_open_models_gen(keysFl=True) -> Iterator[ModelConfig]:
+    if keysFl:
+        keys = load_keys()
+        if keys:
+            for model in COMMERCIAL_MODELS:
+                model.api_key = keys[model.provider]
     yield from OPEN_MODELS
 
-def get_all_models_gen() -> Iterator[ModelConfig]:
-    keys = load_keys()
+def get_all_models_gen(keysFl=True) -> Iterator[ModelConfig]:
     ALL_MODELS = COMMERCIAL_MODELS + OPEN_MODELS
-    if keys:
-      for model in ALL_MODELS:
-        model.api_key = keys[model.provider]
+    if keysFl:
+        keys = load_keys()
+        if keys:
+            for model in ALL_MODELS:
+                model.api_key = keys[model.provider]
     yield from ALL_MODELS
 # ---------------------------------------------------------------------------
 # Quick self-test

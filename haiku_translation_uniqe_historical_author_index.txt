@@ -1,0 +1,138 @@
+# Historical and author index for haiku_translation_uniqe.txt
+# Basis: the attached deduplicated corpus contains 123 distinct Japanese source texts, including the five unique replacement poems at rows 119-123.
+# IMPORTANT: The paper uses "haiku" as a concise umbrella term; some items are historically hokku/haikai/renga-related, senryu, or other short-form expressions.
+# Historical class definitions:
+# H1: Medieval / pre-Edo linked-verse precursor | 15th century
+# H2: Edo-period haikai, hokku, and related short verse | 17th--mid-19th centuries
+# H3: Meiji, Taisho, and early/mid-Showa modern haiku | ca. 1868--1945
+# H4: Postwar and late-20th-century modern haiku | ca. 1945--1999
+# H5: Contemporary public, competition, and other short-form texts | 2000--2023
+# H6: Unresolved or insufficiently dated provenance | Undetermined
+#
+# Row-level audit counts: H1=1, H2=45, H3=34, H4=26, H5=15, H6=2, Total=123
+# Low-confidence/unresolved rows should be rechecked against the original anthology or source bibliography before publication.
+#
+ID|Haiku|Historical_Class_ID|Historical_Stratum|Approximate_Period|Author_or_Source|Author_Source_Class|Attribution_Confidence|Source_File|Source_Row|Notes
+1|あつあつの豆腐来にけりしぐれけり|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Konishi Raizan (小西来山)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|1|
+2|山や雪知らぬ鳥鳴く都かな|H1|Medieval / pre-Edo linked-verse precursor|15th century|Shinkei (心敬)|Named medieval linked-verse poet|High|haiku_translation_uniqe.txt|2|Medieval renga/linked-verse precursor; predates the modern haiku genre.
+3|大雪に行方不明の福寿草|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Hasegawa Kanajo (長谷川かな女)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|3|
+4|四日には寝てもや春の花心|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Tachibana Hokushi (立花北枝)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|4|
+5|夜着に寝てかりがね寒し旅の宿|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|5|
+6|北窓をふさぎし鐘のきこえけり|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Kubota Mantaro (久保田万太郎)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|6|
+7|北窓を塞ぎて今日の午睡かな|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Nagai Kafu (永井荷風)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|7|
+8|三度啼きて聞こえずなりぬ鹿の聲|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|8|
+9|こぼれ米ねずみと分かつ秋の暮れ|H6|Unresolved or insufficiently dated provenance|Undetermined|Unresolved / not securely attributed|Unresolved attribution|Low|haiku_translation_uniqe.txt|9|Exact author/date not securely verified in the present audit; retain as unresolved pending source confirmation.
+10|こちら向け我も寂しき秋の暮|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|10|
+11|雨の日や世間の秋を境町|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|11|
+12|此あたり目に見ゆるものみなすゞし|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|12|
+13|夏みかん酸っぱしいまさら純潔など|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|13|
+14|夫ならぬひとによりそふ青嵐|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|14|
+15|娼婦またよきか熟れたる柿食うぶ|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|15|
+16|実石榴のかつと割れたる情痴かな|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|16|
+17|欲るこころ手袋の指器に触るる|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|17|
+18|まぐはひのしづかなるあめ居とりまく|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|18|
+19|好きなものは玻璃薔薇雨駅指春雷|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Suzuki Shizuko (鈴木しづ子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|19|
+20|雲の峰いくつ崩れて月の山|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|20|
+21|七夕のあはぬこころや雨中天|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|21|
+22|かれ枝に烏のとまりけり秋の暮|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|22|
+23|薄月夜花くちなしの匂いけり|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|23|
+24|短夜の幽霊多き墓場かな|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|24|
+25|雑草のように強く生きたい|H6|Unresolved or insufficiently dated provenance|Undetermined|Unresolved / not securely attributed|Unresolved attribution|Low|haiku_translation_uniqe.txt|25|Phrase could not be securely tied to a specific poet/date; retain as unresolved pending source confirmation.
+26|花守や白き頭を突き合はせ|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Mukai Kyorai (向井去来)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|26|
+27|菜の花や月は東に日は西に|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|27|
+28|月に遠くおぼゆる藤の色香かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|28|
+29|さくら咲き起居に目立つ部屋の塵|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Yamaguchi Sodo (山口草堂)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|29|
+30|けふまでの日はけふ捨てて初桜|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kaga no Chiyojo (加賀千代女)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|30|
+31|5階から隣家の庭の梅借りる|H5|Contemporary public, competition, and other short-form texts|2000--2023|Senoo Natsumi (妹尾なつみ), Ito En O-i Ocha New Haiku Award entrant|Public competition haiku entrant|High|haiku_translation_uniqe.txt|31|Contemporary public competition source; 31st Ito En O-i Ocha New Haiku Award (results announced 2020).
+32|白葱のひかりの棒をいま刻む|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Kuroda Momoko (黒田杏子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|32|
+33|オメデタウレイコヘサクラホクジヤウス|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Kawasaki Tenko (川崎展宏)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|33|Experimental all-katakana poem; associated with Kawasaki Tenko and the 1973 collection Kuzu no Ha.
+34|西行の爪糞程や花の時|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kagami Shiko (各務支考)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|34|
+35|三寒四温の候、皆様いかがお過ごしでしょうか？|H5|Contemporary public, competition, and other short-form texts|2000--2023|Unattributed conventional seasonal greeting / short-form expression|Contemporary / other short-form source|Medium|haiku_translation_uniqe.txt|35|Not a strict haiku; conventional seasonal-greeting style expression. Included under the paper's shorthand umbrella term haiku.
+36|春風や いろいろの香を そそのかし|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kaga no Chiyojo (加賀千代女)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|36|
+37|春昼の指とどまれば琴も止む|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Nozawa Setsuko (野澤節子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|37|
+38|ふみわけた情の道や山さくら|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kaga no Chiyojo (加賀千代女)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|38|
+39|冬薔薇やわが掌が握るわが生涯|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Nozawa Setsuko (野澤節子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|39|
+40|春雨の音がしてくる楽しさよ|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Yamaguchi Seison (山口青邨)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|40|
+41|灰すてて白梅うるむ垣根かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Nozawa Boncho (野沢凡兆)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|41|
+42|古庭に茶筌花さく椿かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|42|
+43|障子あけて部屋のゆとりを冬惜しむ|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Tomita Mokuho (富田木歩)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|43|
+44|勇気こそ地の塩なれや梅真白|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Nakamura Kusatao (中村草田男)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|44|
+45|寒星や神の算盤 ただひそか|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Nakamura Kusatao (中村草田男)|Named postwar/late-20th-century haiku author|Medium|haiku_translation_uniqe.txt|45|Borderline pre/postwar authorial period; assigned H4 here because the work is treated with the postwar/late-modern component in this dataset audit.
+46|瘤あるが故の親しさ一冬木|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Murakoshi Kaseki (村越化石)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|46|
+47|除夜の湯に肌触れあへり生くるべし|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Murakoshi Kaseki (村越化石)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|47|
+48|向ふから 俳句が来るよ 冬日和|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Murakoshi Kaseki (村越化石)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|48|
+49|裸木の側にしばらく居てやりぬ|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Murakoshi Kaseki (村越化石)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|49|
+50|生きねばや鳥とて雪を払ひ立つ|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Murakoshi Kaseki (村越化石)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|50|
+51|よく眠る夢の枯野が青むまで|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Kaneko Tota (金子兜太)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|51|
+52|雪ふりや 棟の白猫声ばかり|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|52|
+53|目出度さもちゅう位也おらが春|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kobayashi Issa (小林一茶)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|53|
+54|一行の心を籠めし年始状|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Takahama Kyoshi (高浜虚子)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|54|
+55|冬苺雪明り遠く遠くあり|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Kato Shuson (加藤楸邨)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|55|
+56|しばらくは花のふぶくにまかせけり|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Kubota Mantaro (久保田万太郎)|Named postwar/late-20th-century haiku author|Medium|haiku_translation_uniqe.txt|56|
+57|買初にかふや七味唐辛子|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Ishikawa Keiro (石川桂郎)|Named postwar/late-20th-century haiku author|Medium|haiku_translation_uniqe.txt|57|
+58|独り句の推敲をして遅き日を|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Takahama Kyoshi (高浜虚子)|Named postwar/late-20th-century haiku author|Medium|haiku_translation_uniqe.txt|58|Late Kyoshi work; assigned H4 by poem-date/postwar placement rather than by the author's earlier-generation affiliation.
+59|そぞろ寒千手に目ある観世音|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Mitsuhashi Toshio (三橋敏雄)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|59|
+60|あかあかと日はつれなくも秋の風|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|60|
+61|むざんやな甲の下のきりぎりす|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|61|
+62|山中や菊はたをらぬ湯の匂い|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|62|
+63|ゆきゆきてたふれ伏とも萩の原|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kawai Sora (河合曾良)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|63|
+64|物書きて扇引きさく名残哉|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|64|
+65|われの星　燃えてをるなり　星月夜|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Takahama Kyoshi (高浜虚子)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|65|
+66|家族とは同じトイレを使うこと|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name ペネ (2015 winning entry)|Public competition senryu entrant|High|haiku_translation_uniqe.txt|66|
+67|子を囲み皆で力む初トイレ|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|67|
+68|ぜったいにゆうしょうそうなウンチでた|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name チーター山口 (2023 Kids Prize)|Public competition senryu entrant|High|haiku_translation_uniqe.txt|68|
+69|怖いから大きな声で歌うたう|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|69|
+70|ケータイで愛を語っているトイレ|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|70|
+71|紙あるのかあさんそんな大声で|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|71|
+72|トイレから出た目が赤い負け試合|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name 尻子玉 (2019 award entry)|Public competition senryu entrant|High|haiku_translation_uniqe.txt|72|
+73|久しぶり父との会話「早く出て」|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|73|
+74|あやまると心に決めて出るトイレ|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|74|
+75|言い出せずでデート帰りは猛ダッシュ|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name/year not yet verified|Public competition senryu entrant|Medium|haiku_translation_uniqe.txt|75|
+76|生涯の決断だってするトイレ|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name いーじー (2012 winning entry)|Public competition senryu entrant|High|haiku_translation_uniqe.txt|76|
+77|トイレまで追ってきた子が出ていく日|H5|Contemporary public, competition, and other short-form texts|2000--2023|TOTO Toilet Senryu entrant; pen name さっちゃん (2023 grand-prize entry)|Public competition senryu entrant|High|haiku_translation_uniqe.txt|77|
+78|秋刀魚焼く匂の底へ日は落ちぬ|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Kato Shuson (加藤楸邨)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|78|
+79|満月の なまなまのぼる 天の壁|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Iida Ryuta (飯田龍太)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|79|
+80|釣鐘のなかの月日も柿の秋|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Iida Ryuta (飯田龍太)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|80|
+81|鐘つけば銀杏散るなり建長寺|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Natsume Soseki (夏目漱石)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|81|
+82|柿くへば鐘が鳴るなり法隆寺|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|82|
+83|ひとつ色で似ぬものばかり紅葉哉|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kaga no Chiyojo (加賀千代女)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|83|
+84|うつくしや野分のあとのとうがらし|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|84|
+85|青空に指で字を書く秋の暮れ|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kobayashi Issa (小林一茶)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|85|
+86|淋しさに又銅鑼打つや鹿火屋守|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Hara Sekitei (原石鼎)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|86|
+87|のりながら馬草はませて月見哉|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Mukai Kyorai (向井去来)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|87|
+88|掌に掬へば色なき水や夏の海|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Hara Sekitei (原石鼎)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|88|
+89|鳴くな虫わかるる恋は星に冴え|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kobayashi Issa (小林一茶)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|89|
+90|秋風や模様のちがふ皿二つ|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Hara Sekitei (原石鼎)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|90|
+91|蚊を打つて軍書の上に血を印す|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|91|
+92|暗く暑く大群集と花火待つ|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Saito Sanki (西東三鬼)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|92|
+93|おもしろうてやがて悲しき鵜舟かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|93|
+94|閑さや岩にしみ入る蝉の声|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|94|
+95|初蝉の耳まで来たる暑哉|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yokoi Yayu (横井也有)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|95|
+96|文月の返しに落る一葉かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kaga no Chiyojo (加賀千代女)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|96|
+97|寂として客の絶え間のぼたん哉|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|97|
+98|ほのかなる空の匂ひや秋の晴|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Takahama Kyoshi (高浜虚子)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|98|
+99|じゃんけんで負けて蛍に生まれたの|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Ikeda Sumiko (池田澄子)|Named postwar/late-20th-century haiku author|High|haiku_translation_uniqe.txt|99|
+100|古池やみんな飛び込もう芭蕉次に|H5|Contemporary public, competition, and other short-form texts|2000--2023|Unattributed modern/contemporary Basho parody|Contemporary / other short-form source|Low|haiku_translation_uniqe.txt|100|Modern/contemporary parody of Basho's old-pond motif; exact author/source not securely established, but the linguistic form is treated as contemporary material.
+101|夏山の大木倒す谺かな|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Naito Meisetsu (内藤鳴雪)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|101|
+102|牡丹散り白磁を割りしごとしづか|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Yamaguchi Seison (山口誓子)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|102|
+103|清水すずし蛍のきえてなにもなし|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kaga no Chiyojo (加賀千代女)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|103|
+104|梅雨眠し安らかな死を思ひつつ|H4|Postwar and late-20th-century modern haiku|ca. 1945--1999|Takahama Kyoshi (高浜虚子)|Named postwar/late-20th-century haiku author|Medium|haiku_translation_uniqe.txt|104|Late Kyoshi work; assigned H4 by poem-date/postwar placement.
+105|稲妻にさとらぬ人の貴さよ|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|105|
+106|水桶にうなずきあふや瓜茄子|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|106|
+107|涼しさや鐘をはなるるかねの声|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|107|
+108|紫陽花や昨日の誠今日の嘘|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|108|
+109|仰き見る芭せをの上に蛙かな|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|109|Parodic/wordplay use of Basho/banana and frog; attributed to Masaoka Shiki.
+110|古池や芭蕉飛び込む水の音|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Sengai Gibon (仙厓義梵)|Named Edo-period haikai/hokku poet|Medium|haiku_translation_uniqe.txt|110|Parodic old-pond/Basho wordplay associated with Sengai.
+111|池あらば飛で芭蕉に聞かせたい|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Sengai Gibon (仙厓義梵)|Named Edo-period haikai/hokku poet|Medium|haiku_translation_uniqe.txt|111|Parodic old-pond/Basho wordplay associated with Sengai.
+112|をちこちに滝の音聞く若葉かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|112|
+113|わが恋は人とる沼の花菖蒲|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Izumi Kyoka (泉鏡花)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|113|
+114|雨に鎖す紗窓の外や梨花の雪|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|114|
+115|あくびした口に花ちる日永哉|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|115|
+116|永き日やあくびうつして別れ行く|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Natsume Soseki (夏目漱石)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|116|
+117|京にても京なつかしや ほととぎす|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Matsuo Basho (松尾芭蕉)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|117|
+118|若くなる人の心や春の旅|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Masaoka Shiki (正岡子規)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|118|
+119|五月来ぬ心ひらけし五月来ぬ|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Hoshino Tatsuko (星野立子)|Named modern literary/haiku author|Medium|haiku_translation_uniqe.txt|119|Hoshino Tatsuko; added unique source text in the deduplicated final corpus.
+120|五十聟天窓をかくす扇かな|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Kobayashi Issa (小林一茶)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|120|Kobayashi Issa; associated with 1814.
+121|梅遠近南すべく北すべく|H2|Edo-period haikai, hokku, and related short verse|17th--mid-19th centuries|Yosa Buson (与謝蕪村)|Named Edo-period haikai/hokku poet|High|haiku_translation_uniqe.txt|121|Yosa Buson; associated with 1777.
+122|梅遠近そぞろあるきす昨日今日|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Natsume Soseki (夏目漱石)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|122|Natsume Soseki; associated with 1899.
+123|雨の中に立春大吉の光あり|H3|Meiji, Taisho, and early/mid-Showa modern haiku|ca. 1868--1945|Takahama Kyoshi (高浜虚子)|Named modern literary/haiku author|High|haiku_translation_uniqe.txt|123|Takahama Kyoshi; associated with 1918.

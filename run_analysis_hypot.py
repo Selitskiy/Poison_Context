@@ -1,11 +1,12 @@
-import llm_client
-from llm_client import single_turn
+#import llm_client
+#from llm_client import single_turn
 import csv
 import os
 import pandas as pd
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
 from data_loader import HaikuEntry
+from latex_output import print_latex_table
 
 
 def _concat_metric_pair(left, right):
@@ -38,7 +39,7 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
   acc_cl = {name: {} for name in metric_names}
 
   # generator models
-  for mConf1 in get_all_models_gen(): #get_open_models_gen(): #get_commercial_models_gen():
+  for mConf1 in get_all_models_gen(keysFl=False): #get_open_models_gen(): #get_commercial_models_gen():
 
     modelName1 = mConf1.litellm_model_id.replace("/", "_")
     modelAlias1 = mConf1.name
@@ -51,7 +52,7 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
     exp4_list = []
 
     # discriminator models
-    for i, mConf2 in enumerate(get_all_models_gen()): #get_open_models_gen(): #get_commercial_models_gen():
+    for i, mConf2 in enumerate(get_all_models_gen(keysFl=False)): #get_open_models_gen(): #get_commercial_models_gen():
 
       modelName2 = mConf2.litellm_model_id.replace("/", "_")
       modelAlias2 = mConf2.name
@@ -140,7 +141,6 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
 
       except Exception as e:
         print(f"Error processing: {e}")
-        #os.remove(tmpOutputFileFull) # clean up temp file if error occurs
         return(1) 
     
     for name in metric_names:
@@ -162,9 +162,8 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
         dfr_metrics[name] = pd.concat([dfr_metrics[name], pd.DataFrame([{"generator": modelAlias1, name: metrics_r[name]}])], ignore_index=True)
 
   #by column
-  for i, mConf2 in enumerate(get_all_models_gen()): #get_open_models_gen(): #get_commercial_models_gen():
+  for i, mConf2 in enumerate(get_all_models_gen(keysFl=False)): #get_open_models_gen(): #get_commercial_models_gen():
 
-    #modelName2 = mConf2.litellm_model_id.replace("/", "_")
     modelAlias2 = mConf2.name
     dfi_c1 = _concat_metric_pair(acc_exp1_list[i], acc_exp2_list[i])
     dfi_c2 = _concat_metric_pair(acc_exp3_list[i], acc_exp4_list[i])
@@ -177,20 +176,27 @@ def run_analysis_hypot(fileTpl, fileTpl2, expTpl1, expTpl2, experimentTpl1, expe
   for name in metric_names:
     dfc_metrics[name] = pd.DataFrame([acc_cl[name]])
 
-  print(f"Accuracy metrics for: {fileTpl}, {fileTpl2}, {expTpl1}, {expTpl2}, {experimentTpl1}, {experimentTpl2}")
-  for name in metric_names:
-    print(f"{name.capitalize()}:")
-    print(df_metrics[name])
 
-  print(f"Generator accuracy metrics for: {fileTpl}, {fileTpl2}, {expTpl1}, {expTpl2}, {experimentTpl1}, {experimentTpl2}")
   for name in metric_names:
-    print(f"{name.capitalize()}:")
-    print(dfr_metrics[name])
+    print_latex_table(
+        df_metrics[name],
+        f"P-valuers for Wilcoxon less model comparison {fileTpl}, {fileTpl2}, {expTpl1}, {expTpl2}, {experimentTpl1}, {experimentTpl2} ({name})",
+        f"tab:m_ud_{fileTpl}_{fileTpl2},{expTpl1}_{expTpl2}_{experimentTpl1}_{experimentTpl2}_{name}", 5
+    )
+    #print(df_metrics[name])
 
-  print(f"Discriminator accuracy metrics for: {fileTpl}, {fileTpl2}, {expTpl1}, {expTpl2}, {experimentTpl1}, {experimentTpl2}")
   for name in metric_names:
-    print(f"{name.capitalize()}:")
-    print(dfc_metrics[name])
+    print_latex_table(
+        dfr_metrics[name],
+        f"P-valuers for Wilcoxon less generator comparison {fileTpl}, {fileTpl2}, {expTpl1}, {expTpl2}, {experimentTpl1}, {experimentTpl2} ({name})",
+        f"tab:m_ud_{fileTpl}_{fileTpl2},{expTpl1}_{expTpl2}_{experimentTpl1}_{experimentTpl2}_{name}", 5
+    )
+    #print(dfr_metrics[name])
 
-  #os.rename(tmpOutputFileFull, outputFileFull)
-  #print(f"Output written to: {outputFileFull}")
+  for name in metric_names:
+    print_latex_table(
+        dfc_metrics[name],
+        f"P-valuers for Wilcoxon less discriminator comparison {fileTpl}, {fileTpl2}, {expTpl1}, {expTpl2}, {experimentTpl1}, {experimentTpl2} ({name})",
+        f"tab:m_ud_{fileTpl}_{fileTpl2},{expTpl1}_{expTpl2}_{experimentTpl1}_{experimentTpl2}_{name}", 5
+    )
+    #print(dfc_metrics[name])

@@ -1,24 +1,12 @@
-import llm_client
-from llm_client import single_turn
+#import llm_client
+#from llm_client import single_turn
 import csv
 import os
 import pandas as pd
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
 from data_loader import HaikuEntry
-
-
-def print_latex_table(df, caption, label):
-  print(f"% {caption}")
-  print(
-      df.to_latex(
-          index=False,
-          float_format=lambda x: f"{x:.4f}",
-          caption=caption,
-          label=label,
-      )
-  )
-
+from latex_output import print_latex_table
 
 def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
 
@@ -28,14 +16,6 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
   sample_metrics = accuracyFunct(dummy_df, expTpl1, expTpl2)
   metric_names = list(sample_metrics.keys())
 
-  #outputFileName = f"{fileTpl}_{experimentTpl}_{modelName}.csv"
-  #tmpOutputFileName = f"tmp_{outputFileName}"
-  #tmpOutputFileFull = os.path.join(os.path.dirname(__file__), "data", tmpOutputFileName)
-
-  #outputFileFull = os.path.join(os.path.dirname(__file__), "data", outputFileName)
-  #if os.path.isfile(outputFileFull):
-  #  inputFileFull = outputFileFull
-  #  trueInputFile = False
 
   df_metrics = {name: pd.DataFrame() for name in metric_names}
 
@@ -49,7 +29,7 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
   acc_cl = {name: {} for name in metric_names}
 
   # generator models
-  for mConf1 in get_all_models_gen(): #get_open_models_gen(): #get_commercial_models_gen():
+  for mConf1 in get_all_models_gen(keysFl=False): #get_open_models_gen(): #get_commercial_models_gen():
 
     modelName1 = mConf1.litellm_model_id.replace("/", "_")
     modelAlias1 = mConf1.name
@@ -60,7 +40,7 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
     exp2_list = []
 
     # discriminator models
-    for i, mConf2 in enumerate(get_all_models_gen()): #get_open_models_gen(): #get_commercial_models_gen():
+    for i, mConf2 in enumerate(get_all_models_gen(keysFl=False)): #get_open_models_gen(): #get_commercial_models_gen():
 
       modelName2 = mConf2.litellm_model_id.replace("/", "_")
       modelAlias2 = mConf2.name
@@ -113,21 +93,8 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
           acc_exp2_list[i] = pd.concat([acc_exp2_list[i], exp2_list[i]])
 
 
-
-
-        #with open(tmpOutputFileFull, mode='w', encoding="utf-8", newline='') as out_fh:
-          #writer = csv.DictWriter(out_fh, fieldnames=fieldnames)
-          #writer.writeheader()
-
-          #for row_num, row in enumerate(reader, start=2):  # start=2 (row 1 is header)
-              
-          #row = experimentFunct(row_num, row, mConf)
-
-          #writer.writerow(row)
-
       except Exception as e:
         print(f"Error processing: {e}")
-        #os.remove(tmpOutputFileFull) # clean up temp file if error occurs
         return(1) 
     
     for name in metric_names:
@@ -144,9 +111,8 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
         dfr_metrics[name] = pd.concat([dfr_metrics[name], pd.DataFrame([{"generator": modelAlias1, name: metrics_r[name]}])], ignore_index=True)
 
   #by column
-  for i, mConf2 in enumerate(get_all_models_gen()): #get_open_models_gen(): #get_commercial_models_gen():
+  for i, mConf2 in enumerate(get_all_models_gen(keysFl=False)): #get_open_models_gen(): #get_commercial_models_gen():
 
-    #modelName2 = mConf2.litellm_model_id.replace("/", "_")
     modelAlias2 = mConf2.name
     dfi_c = pd.concat([acc_exp1_list[i], acc_exp2_list[i]], axis=1)
     metrics_c = accuracyFunct(dfi_c, expTpl1, expTpl2)
@@ -160,23 +126,24 @@ def run_analysis(fileTpl, expTpl1, expTpl2, experimentTpl, accuracyFunct):
   for name in metric_names:
     print_latex_table(
         df_metrics[name],
-        f"Accuracy metrics for {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
-        f"tab:{fileTpl}_{experimentTpl}_{name}_accuracy",
+        f"Accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
+        f"tab:gd_{fileTpl}_{expTpl1}_{expTpl2}_{experimentTpl}_{name}",
     )
+    #print(df_metrics[name])
 
   for name in metric_names:
     print_latex_table(
         dfr_metrics[name],
-        f"Generator accuracy metrics for {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
-        f"tab:{fileTpl}_{experimentTpl}_{name}_generator_accuracy",
+        f"Generator accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
+        f"tab:g_{fileTpl}_{expTpl1}_{expTpl2}_{experimentTpl}_{name}",
     )
+    #print(dfr_metrics[name])
 
   for name in metric_names:
     print_latex_table(
         dfc_metrics[name],
-        f"Discriminator accuracy metrics for {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
-        f"tab:{fileTpl}_{experimentTpl}_{name}_discriminator_accuracy",
+        f"Discriminator accuracy metrics for: {fileTpl}, {expTpl1}, {expTpl2}, {experimentTpl} ({name})",
+        f"tab:g_{fileTpl}_{expTpl1}_{expTpl2}_{experimentTpl}_{name}",
     )
+    #print(dfc_metrics[name])
 
-  #os.rename(tmpOutputFileFull, outputFileFull)
-  #print(f"Output written to: {outputFileFull}")
