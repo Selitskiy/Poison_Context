@@ -2,11 +2,26 @@
 #from llm_client import single_turn
 import csv
 import os
+import numpy as np
 import pandas as pd
 
 from config import ModelConfig, get_commercial_models_gen, get_open_models_gen, get_all_models_gen
 from data_loader import HaikuEntry
 from latex_output import print_latex_table
+
+
+def _metric_cell_to_scalar(value):
+  # If the per-cell metric is already a (mean, std) tuple, use its mean component
+  if isinstance(value, tuple):
+    return float(value[0])
+  return float(value)
+
+
+def _mean_std(values):
+  # mean and standard deviation of a list of metrics = accuracyFunct(dfi) values
+  arr = np.array([_metric_cell_to_scalar(v) for v in values], dtype=float)
+  return float(arr.mean()), float(arr.std())
+
 
 def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
 
@@ -16,6 +31,9 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
   sample_metrics = accuracyFunct(dummy_df)
   metric_names = list(sample_metrics.keys())
 
+  models = list(get_all_models_gen(keysFl=False))
+  num_models = len(models)
+
 
   df_metrics = {name: pd.DataFrame() for name in metric_names}
 
@@ -23,13 +41,23 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
 
   dfc_metrics = {name: pd.DataFrame() for name in metric_names}
 
+  # mean and standard deviation of metrics = accuracyFunct(dfi) per row and per column
+  dfr_metrics_meanstd = {name: pd.DataFrame() for name in metric_names}
+
+  dfc_metrics_meanstd = {name: pd.DataFrame() for name in metric_names}
+
+  # per-column accumulators: metrics_by_col[name][j] -> list of per-cell metrics
+  # = accuracyFunct(dfi) values for discriminator j, across all generators
+  metrics_by_col = {name: [[] for _ in range(num_models)] for name in metric_names}
+  col_aliases = [mConf2.name for mConf2 in models]
+
   acc_exp1_list = []
   #acc_exp2_list = []
 
   acc_cl = {name: {} for name in metric_names}
 
   # generator models
-  for mConf1 in get_all_models_gen(keysFl=False): #get_open_models_gen(): #get_commercial_models_gen():
+  for mConf1 in models: #get_open_models_gen(): #get_commercial_models_gen():
 
     modelName1 = mConf1.litellm_model_id.replace("/", "_")
     modelAlias1 = mConf1.name
@@ -39,8 +67,12 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
     exp1_list = []
     #exp2_list = []
 
+    # per-row accumulator: metrics_by_row[name] -> list of per-cell metrics
+    # = accuracyFunct(dfi) values for this generator, across all discriminators
+    metrics_by_row = {name: [] for name in metric_names}
+
     # discriminator models
-    for i, mConf2 in enumerate(get_all_models_gen(keysFl=False)): #get_open_models_gen(): #get_commercial_models_gen():
+    for i, mConf2 in enumerate(models): #get_open_models_gen(): #get_commercial_models_gen():
 
       modelName2 = mConf2.litellm_model_id.replace("/", "_")
       modelAlias2 = mConf2.name
@@ -63,6 +95,8 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
 
         for name in metric_names:
           metrics_cr[name][modelAlias2] = metrics[name]
+          metrics_by_row[name].append(metrics[name])
+          metrics_by_col[name][i].append(metrics[name])
 
 
         # by row
@@ -86,15 +120,22 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
     if exp1_list:
       #by row
       exp1_row = pd.concat(exp1_list)
-      #exp2_row = pd.concat(exp2_list)
-      #dfi_r = pd.concat([exp1_row, exp2_row], axis=1)
       metrics_r = accuracyFunct(exp1_row)
 
       for name in metric_names:
         dfr_metrics[name] = pd.concat([dfr_metrics[name], pd.DataFrame([{"generator": modelAlias1, name: metrics_r[name]}])], ignore_index=True)
 
+    # by row: mean and standard deviation of metrics = accuracyFunct(dfi) across discriminators
+    for name in metric_names:
+      if metrics_by_row[name]:
+        row_mean, row_std = _mean_std(metrics_by_row[name])
+        dfr_metrics_meanstd[name] = pd.concat(
+            [dfr_metrics_meanstd[name], pd.DataFrame([{"generator": modelAlias1, name: (row_mean, row_std)}])],
+            ignore_index=True,
+        )
+
   #by column
-  for i, mConf2 in enumerate(get_all_models_gen(keysFl=False)): #get_open_models_gen(): #get_commercial_models_gen():
+  for i, mConf2 in enumerate(models): #get_open_models_gen(): #get_commercial_models_gen():
 
     modelAlias2 = mConf2.name
     dfi_c = acc_exp1_list[i]
@@ -105,6 +146,15 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
 
   for name in metric_names:
     dfc_metrics[name] = pd.DataFrame([acc_cl[name]])
+
+  # by column: mean and standard deviation of metrics = accuracyFunct(dfi) across generators
+  for name in metric_names:
+    acc_cl_meanstd = {}
+    for i, modelAlias2 in enumerate(col_aliases):
+      if metrics_by_col[name][i]:
+        col_mean, col_std = _mean_std(metrics_by_col[name][i])
+        acc_cl_meanstd[modelAlias2] = (col_mean, col_std)
+    dfc_metrics_meanstd[name] = pd.DataFrame([acc_cl_meanstd])
 
 
   for name in metric_names:
@@ -130,4 +180,20 @@ def run_analysis_binary(fileTpl, experimentTpl, accuracyFunct):
         f"tab:g_{fileTpl}_{experimentTpl}_{name}",
     )
     #print(dfc_metrics[name])
+
+  for name in metric_names:
+    print_latex_table(
+        dfr_metrics_meanstd[name],
+        f"Generator mean/std accuracy metrics for: {fileTpl}, {experimentTpl} ({name})",
+        f"tab:bin_g_meanstd_{fileTpl}_{experimentTpl}_{name}",
+    )
+    #print(dfr_metrics_meanstd[name])
+
+  for name in metric_names:
+    print_latex_table(
+        dfc_metrics_meanstd[name],
+        f"Discriminator mean/std accuracy metrics for: {fileTpl}, {experimentTpl} ({name})",
+        f"tab:bin_d_meanstd_{fileTpl}_{experimentTpl}_{name}",
+    )
+    #print(dfc_metrics_meanstd[name])
 

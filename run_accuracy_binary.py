@@ -30,6 +30,6 @@ if __name__ == "__main__":
   #prevExperimentTpl1 = "ablation"
   #prevExperimentTpl2 = "poison"
 
-  experimentTpl = "binary_discriminant_hint"
+  experimentTpl = "binary_discriminant"
 
   run_analysis_binary(fileTpl, experimentTpl, modelAccuracyBinaryFunct)
