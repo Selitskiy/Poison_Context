@@ -4,7 +4,7 @@ import csv
 import os
 import re
 
-from scipy.stats import ks_2samp
+from scipy.stats import ks_2samp, spearmanr
 from run_analysis_hypot_self import run_analysis_hypot_self
 
 
@@ -15,25 +15,27 @@ def modelPairAccuracyFunctKS(dfi1, dfi2, expTpl1, expTpl2):
   fpw1 = dfi1[expTpl2]
   tnw1 = 1 - fpw1
   accuracyw1 = (tpw1 + tnw1) / (tpw1 + tnw1 + fpw1 + fnw1)
-  precisionw1 = tpw1/(tpw1+fpw1)
-  recallw1 = tpw1/(tpw1+fnw1)
-  f1w1 = 2*precisionw1 * recallw1/(precisionw1 + recallw1)
 
   tpw2 = dfi2[expTpl1]
   fnw2 = 1 - tpw2
   fpw2 = dfi2[expTpl2]
   tnw2 = 1 - fpw2
   accuracyw2 = (tpw2 + tnw2) / (tpw2 + tnw2 + fpw2 + fnw2)
-  precisionw2 = tpw2/(tpw2+fpw2)
-  recallw2 = tpw2/(tpw2+fnw2)
-  f1w2 = 2*precisionw2 * recallw2/(precisionw2 + recallw2)
+
 
   acc_ks_stat, acc_p_value = ks_2samp(accuracyw1, accuracyw2)
-  #f1_ks_stat, f1_p_value = ks_2samp(f1w1, f1w2)
+
+  # spearmanr is a paired correlation test and requires both samples to have the
+  # same length; dfi1/dfi2 can come from files with different row counts, so
+  # truncate to the common length
+  n = min(len(accuracyw1), len(accuracyw2))
+  acc_spearman_corr, acc_spearman_p_value = spearmanr(accuracyw1[:n], accuracyw2[:n])
 
   return {
+    'acc_ks_stat': acc_ks_stat,
     'acc_p_value': acc_p_value,
-    #'f1_p_value': f1_p_value
+    'acc_spearman_corr': acc_spearman_corr,
+    'acc_spearman_p_value': acc_spearman_p_value,
   }
 
 if __name__ == "__main__":
